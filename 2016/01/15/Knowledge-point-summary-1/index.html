@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="本文主要是对在公司实习第一周对需要完成项目所要的一些知识点进行收集与总结，主要内容包括一些canvas的基础知识和在做项目过程中遇见的相关javascript问题的解决方案。主要目标是通过学习深入canvas和javascript，完成一个较复杂在线web图片编辑器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实习知识点总结(1)">
+<meta property="og:url" content="https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/index.html">
+<meta property="og:site_name" content="Gavin Zhou&#39;s Blog">
+<meta property="og:description" content="本文主要是对在公司实习第一周对需要完成项目所要的一些知识点进行收集与总结，主要内容包括一些canvas的基础知识和在做项目过程中遇见的相关javascript问题的解决方案。主要目标是通过学习深入canvas和javascript，完成一个较复杂在线web图片编辑器。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2016-01-15T19:32:35.000Z">
+<meta property="article:modified_time" content="2024-01-02T17:39:28.096Z">
+<meta property="article:author" content="Gavin Zhou">
+<meta property="article:tag" content="Canvas">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>实习知识点总结(1)</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2016/01/22/Knowledge-point-summary-2/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2016/01/15/promise/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&text=实习知识点总结(1)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&title=实习知识点总结(1)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&is_video=false&description=实习知识点总结(1)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=实习知识点总结(1)&body=Check out this article: https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&title=实习知识点总结(1)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&title=实习知识点总结(1)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&title=实习知识点总结(1)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&title=实习知识点总结(1)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&name=实习知识点总结(1)&description=&lt;p&gt;本文主要是对在公司实习第一周对需要完成项目所要的一些知识点进行收集与总结，主要内容包括一些canvas的基础知识和在做项目过程中遇见的相关javascript问题的解决方案。&lt;br&gt;主要目标是通过学习深入canvas和javascript，完成一个较复杂在线web图片编辑器。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&t=实习知识点总结(1)"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTML5-canvas%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">HTML5 canvas的一些基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%85%B3%E4%BA%8Ecanvas%E5%85%83%E7%B4%A0"><span class="toc-number">1.1.</span> <span class="toc-text">一、关于canvas元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81canvas%E5%85%83%E7%B4%A0%E7%9A%84%E5%A4%A7%E5%B0%8F%E4%B8%8E%E7%BB%98%E5%9B%BE%E8%A1%A8%E9%9D%A2%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="toc-number">1.2.</span> <span class="toc-text">二、canvas元素的大小与绘图表面的大小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81canvas%E5%85%83%E7%B4%A0%E7%9A%84API%EF%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">三、canvas元素的API：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81canvas%E7%9A%84%E7%BB%98%E5%9B%BE%E7%8E%AF%E5%A2%83%EF%BC%9A"><span class="toc-number">1.4.</span> <span class="toc-text">四、canvas的绘图环境：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript%E4%B8%ADpreventDefault%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">JavaScript中preventDefault方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript%E4%B8%AD%E7%9A%84style%E3%80%81currentStyle%E3%80%81getComputedStyle%E5%8C%BA%E5%88%AB"><span class="toc-number">3.</span> <span class="toc-text">JavaScript中的style、currentStyle、getComputedStyle区别</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        实习知识点总结(1)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Gavin Zhou</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2016-01-15T19:32:35.000Z" class="dt-published" itemprop="datePublished">2016-01-15</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E5%AE%9E%E4%B9%A0%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">实习知识点总结</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Canvas/" rel="tag">Canvas</a>, <a class="p-category" href="/tags/Javascript/" rel="tag">Javascript</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>本文主要是对在公司实习第一周对需要完成项目所要的一些知识点进行收集与总结，主要内容包括一些canvas的基础知识和在做项目过程中遇见的相关javascript问题的解决方案。<br>主要目标是通过学习深入canvas和javascript，完成一个较复杂在线web图片编辑器。</p>
+<span id="more"></span> 
+
+<h1 id="HTML5-canvas的一些基础知识"><a href="#HTML5-canvas的一些基础知识" class="headerlink" title="HTML5 canvas的一些基础知识"></a>HTML5 canvas的一些基础知识</h1><h2 id="一、关于canvas元素"><a href="#一、关于canvas元素" class="headerlink" title="一、关于canvas元素"></a>一、关于canvas元素</h2><p>负责在页面中设定一个区域，通过JavaScript动态地在这个区域中绘制图形。</p>
+<h2 id="二、canvas元素的大小与绘图表面的大小"><a href="#二、canvas元素的大小与绘图表面的大小" class="headerlink" title="二、canvas元素的大小与绘图表面的大小"></a>二、canvas元素的大小与绘图表面的大小</h2><p>Canvas元素有两套尺寸，一个是元素本身大小，一个是元素绘图表面的大小。</p>
+<ul>
+<li>通过<code>&lt;canvas id=”canvas” width=”600” height=”300”&gt;&lt;/canvas&gt;</code>直接设置宽、高属性会同时修改元素本身和元素绘图表面的的大小。</li>
+<li>通过css设定canvas元素的大小，只改变元素本身的大小，不影响绘图表面。</li>
+</ul>
+<p>当canvas元素的大小不符合其绘图表面大小时，浏览器就会对绘图表面进行缩放，使其符合元素大小。</p>
+<h2 id="三、canvas元素的API："><a href="#三、canvas元素的API：" class="headerlink" title="三、canvas元素的API："></a>三、canvas元素的API：</h2><p>只提供了两个属性：width和height<br>三个方法：</p>
+<ul>
+<li>getContext( ) 返回与该canvas元素相关的绘图环境对象。</li>
+<li>toDataURL( )  返回一个数据地址，可设定为img元素的src属性值。</li>
+<li>toBlob( ) 创建表示此canvas元素图像文件的Blob。</li>
+</ul>
+<h2 id="四、canvas的绘图环境："><a href="#四、canvas的绘图环境：" class="headerlink" title="四、canvas的绘图环境："></a>四、canvas的绘图环境：</h2><p>有2d绘图环境、3d绘图环境WebGL以及其他canvas规范在着手准备的绘图环境。<br>Canvas元素仅仅是为了充当绘图环境对象的容器而存在的，该环境对象提供了全部的绘制功能。</p>
+<h1 id="JavaScript中preventDefault方法"><a href="#JavaScript中preventDefault方法" class="headerlink" title="JavaScript中preventDefault方法"></a>JavaScript中preventDefault方法</h1><p>preventDefault:取消事件的默认事件。比如在页面上拖动图片时，会使图片虚化并在其上浮现一个禁止标志。此时调用该方法会取消该默认行为。</p>
+<h1 id="JavaScript中的style、currentStyle、getComputedStyle区别"><a href="#JavaScript中的style、currentStyle、getComputedStyle区别" class="headerlink" title="JavaScript中的style、currentStyle、getComputedStyle区别"></a>JavaScript中的style、currentStyle、getComputedStyle区别</h1><ul>
+<li>style：<br>在JavaScript中，通过document.getElementById(id).style.XXX可以获取到和设置XXX的值，但是，这样只能获取DOM元素style属性里的样式规则，对于通过class属性引用的外部样式表，就得不到我们想要的信息。</li>
+<li>currentStyle：<br>currentStyle可以获取到通过内联或外部引用的css样式的值，如document.getElementById(“test”).currentStyle.top。（但仅限于IE）</li>
+<li>getComputedStyle：<br>对于FF、opera、safari、chrome，可以通过getComputedStyle获取到通过内联或外部引用的CSS样式的值，如<br>dodocument.defaultView.getComputedStyle(mydiv,null).width;</li>
+<li>Ps：currentStyle和getComputedStyle只能用于获取页面元素的样式，不能用来设置相关值。</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTML5-canvas%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">HTML5 canvas的一些基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%85%B3%E4%BA%8Ecanvas%E5%85%83%E7%B4%A0"><span class="toc-number">1.1.</span> <span class="toc-text">一、关于canvas元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81canvas%E5%85%83%E7%B4%A0%E7%9A%84%E5%A4%A7%E5%B0%8F%E4%B8%8E%E7%BB%98%E5%9B%BE%E8%A1%A8%E9%9D%A2%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="toc-number">1.2.</span> <span class="toc-text">二、canvas元素的大小与绘图表面的大小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81canvas%E5%85%83%E7%B4%A0%E7%9A%84API%EF%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">三、canvas元素的API：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81canvas%E7%9A%84%E7%BB%98%E5%9B%BE%E7%8E%AF%E5%A2%83%EF%BC%9A"><span class="toc-number">1.4.</span> <span class="toc-text">四、canvas的绘图环境：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript%E4%B8%ADpreventDefault%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">JavaScript中preventDefault方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript%E4%B8%AD%E7%9A%84style%E3%80%81currentStyle%E3%80%81getComputedStyle%E5%8C%BA%E5%88%AB"><span class="toc-number">3.</span> <span class="toc-text">JavaScript中的style、currentStyle、getComputedStyle区别</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&text=实习知识点总结(1)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&title=实习知识点总结(1)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&is_video=false&description=实习知识点总结(1)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=实习知识点总结(1)&body=Check out this article: https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&title=实习知识点总结(1)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&title=实习知识点总结(1)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&title=实习知识点总结(1)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&title=实习知识点总结(1)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&name=实习知识点总结(1)&description=&lt;p&gt;本文主要是对在公司实习第一周对需要完成项目所要的一些知识点进行收集与总结，主要内容包括一些canvas的基础知识和在做项目过程中遇见的相关javascript问题的解决方案。&lt;br&gt;主要目标是通过学习深入canvas和javascript，完成一个较复杂在线web图片编辑器。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gavin0919.github.io/2016/01/15/Knowledge-point-summary-1/&t=实习知识点总结(1)"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    Gavin Zhou
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

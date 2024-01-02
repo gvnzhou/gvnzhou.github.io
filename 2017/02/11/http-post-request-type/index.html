@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="在我们进行前端开发的时候，经常需要折腾form表单或ajax请求数据类型，以便让后端可以顺利解析我们的请求数据。常见Content-Type的包括multipart&#x2F;form-data、application&#x2F;x-www-form-urlencoded、application&#x2F;json3种类型。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析HTTP请求中常见的Content-Type">
+<meta property="og:url" content="https://gavin0919.github.io/2017/02/11/http-post-request-type/index.html">
+<meta property="og:site_name" content="Gavin Zhou&#39;s Blog">
+<meta property="og:description" content="在我们进行前端开发的时候，经常需要折腾form表单或ajax请求数据类型，以便让后端可以顺利解析我们的请求数据。常见Content-Type的包括multipart&#x2F;form-data、application&#x2F;x-www-form-urlencoded、application&#x2F;json3种类型。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-02-11T17:50:58.000Z">
+<meta property="article:modified_time" content="2024-01-02T17:39:28.096Z">
+<meta property="article:author" content="Gavin Zhou">
+<meta property="article:tag" content="http">
+<meta property="article:tag" content="post">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>浅析HTTP请求中常见的Content-Type</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2017/09/12/koa-webpack-react-hmr/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2016/11/06/hexodeploy/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gavin0919.github.io/2017/02/11/http-post-request-type/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&text=浅析HTTP请求中常见的Content-Type"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&title=浅析HTTP请求中常见的Content-Type"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&is_video=false&description=浅析HTTP请求中常见的Content-Type"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=浅析HTTP请求中常见的Content-Type&body=Check out this article: https://gavin0919.github.io/2017/02/11/http-post-request-type/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&title=浅析HTTP请求中常见的Content-Type"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&title=浅析HTTP请求中常见的Content-Type"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&title=浅析HTTP请求中常见的Content-Type"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&title=浅析HTTP请求中常见的Content-Type"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&name=浅析HTTP请求中常见的Content-Type&description=&lt;p&gt;在我们进行前端开发的时候，经常需要折腾form表单或ajax请求数据类型，以便让后端可以顺利解析我们的请求数据。&lt;br&gt;常见&lt;code&gt;Content-Type&lt;/code&gt;的包括&lt;code&gt;multipart/form-data&lt;/code&gt;、&lt;code&gt;application/x-www-form-urlencoded&lt;/code&gt;、&lt;code&gt;application/json&lt;/code&gt;3种类型。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gavin0919.github.io/2017/02/11/http-post-request-type/&t=浅析HTTP请求中常见的Content-Type"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Content-type"><span class="toc-number">1.</span> <span class="toc-text">Content-type</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#application-x-www-form-urlencoded"><span class="toc-number">2.</span> <span class="toc-text">application&#x2F;x-www-form-urlencoded</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#multipart-form-data"><span class="toc-number">3.</span> <span class="toc-text">multipart&#x2F;form-data</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#application-json"><span class="toc-number">4.</span> <span class="toc-text">application&#x2F;json</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        浅析HTTP请求中常见的Content-Type
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Gavin Zhou</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2017-02-11T17:50:58.000Z" class="dt-published" itemprop="datePublished">2017-02-11</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/http/" rel="tag">http</a>, <a class="p-category" href="/tags/post/" rel="tag">post</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>在我们进行前端开发的时候，经常需要折腾form表单或ajax请求数据类型，以便让后端可以顺利解析我们的请求数据。<br>常见<code>Content-Type</code>的包括<code>multipart/form-data</code>、<code>application/x-www-form-urlencoded</code>、<code>application/json</code>3种类型。</p>
+<span id="more"></span>
+
+<h1 id="Content-type"><a href="#Content-type" class="headerlink" title="Content-type"></a>Content-type</h1><p>HTTP协议把请求信息分为三个部分： 请求行、请求头和请求体。<br>请求行：由请求方法、请求地址、HTTP协议版本三个字段组成<br>请求头：由关键字&#x2F;值对组成，每行一对，关键字和值用英文冒号“:”分隔。请求头部通知服务器有关于客户端请求的信息。<br>请求体： 我们常用的post请求数据就存放在此。</p>
+<p><code>Content-Type</code>包含在请求头中，用于指定请求和响应的HTTP内容类型，告诉浏览器将以什么形式、什么编码读取这个文件。<br><code>Content-Type</code>的格式： <code>[type]/[subtype]</code> &#x2F; <code>parameter</code>。<br>例如最常见的就是<code>text/html</code>，它的意思是说返回的内容是文本类型，这个文本又是HTML格式的。</p>
+<p><code>type</code>常见的形式：<br>Text：用于标准化地表示的文本信息，文本消息可以是多种字符集和或者多种格式的；<br>Multipart：用于连接消息体的多个部分构成一个消息，这些部分可以是不同类型的数据；<br>Application：用于传输应用程序数据或者二进制数据； </p>
+<p><code>parameter</code>可以用来指定附加的信息，更多情况下是用于指定<code>text/plain</code>和<code>text/htm</code>等的文字编码方式的charset参数。</p>
+<h1 id="application-x-www-form-urlencoded"><a href="#application-x-www-form-urlencoded" class="headerlink" title="application&#x2F;x-www-form-urlencoded"></a>application&#x2F;x-www-form-urlencoded</h1><p>说明：数据会被被编码为名称&#x2F;值对。这是标准的编码格式。<br>浏览器会用<code>x-www-form-urlencoded</code>的编码方式把数据转换成一个字串（<code>name1=value1&amp;name2=value2...</code>）</p>
+<h1 id="multipart-form-data"><a href="#multipart-form-data" class="headerlink" title="multipart&#x2F;form-data"></a>multipart&#x2F;form-data</h1><p>它会将表单的数据处理为一条消息，以标签为单元，用分隔符分开。<br>既可以上传键值对，也可以上传文件。<br>当上传的字段是文件时，会有Content-Type来说明文件类型；content-disposition，用来说明字段的一些信息。</p>
+<p>形如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST http://www.example.com HTTP/1.1</span><br><span class="line">Content-Type:multipart/form-data; boundary=----WebKitFormBoundaryrGKCBY7qhFd3TrwA</span><br><span class="line"> </span><br><span class="line">------WebKitFormBoundaryrGKCBY7qhFd3TrwA</span><br><span class="line">Content-Disposition: form-data; name=&quot;text&quot;</span><br><span class="line"> </span><br><span class="line">title</span><br><span class="line">------WebKitFormBoundaryrGKCBY7qhFd3TrwA</span><br><span class="line">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;chrome.png&quot;</span><br><span class="line">Content-Type: image/png</span><br><span class="line"> </span><br><span class="line">PNG ... content of chrome.png ...</span><br><span class="line">------WebKitFormBoundaryrGKCBY7qhFd3TrwA--</span><br></pre></td></tr></table></figure>
+
+<h1 id="application-json"><a href="#application-json" class="headerlink" title="application&#x2F;json"></a>application&#x2F;json</h1><p>用来告诉服务端消息主体是序列化后的 JSON 字符串。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Content-type"><span class="toc-number">1.</span> <span class="toc-text">Content-type</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#application-x-www-form-urlencoded"><span class="toc-number">2.</span> <span class="toc-text">application&#x2F;x-www-form-urlencoded</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#multipart-form-data"><span class="toc-number">3.</span> <span class="toc-text">multipart&#x2F;form-data</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#application-json"><span class="toc-number">4.</span> <span class="toc-text">application&#x2F;json</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gavin0919.github.io/2017/02/11/http-post-request-type/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&text=浅析HTTP请求中常见的Content-Type"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&title=浅析HTTP请求中常见的Content-Type"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&is_video=false&description=浅析HTTP请求中常见的Content-Type"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=浅析HTTP请求中常见的Content-Type&body=Check out this article: https://gavin0919.github.io/2017/02/11/http-post-request-type/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&title=浅析HTTP请求中常见的Content-Type"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&title=浅析HTTP请求中常见的Content-Type"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&title=浅析HTTP请求中常见的Content-Type"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&title=浅析HTTP请求中常见的Content-Type"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gavin0919.github.io/2017/02/11/http-post-request-type/&name=浅析HTTP请求中常见的Content-Type&description=&lt;p&gt;在我们进行前端开发的时候，经常需要折腾form表单或ajax请求数据类型，以便让后端可以顺利解析我们的请求数据。&lt;br&gt;常见&lt;code&gt;Content-Type&lt;/code&gt;的包括&lt;code&gt;multipart/form-data&lt;/code&gt;、&lt;code&gt;application/x-www-form-urlencoded&lt;/code&gt;、&lt;code&gt;application/json&lt;/code&gt;3种类型。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gavin0919.github.io/2017/02/11/http-post-request-type/&t=浅析HTTP请求中常见的Content-Type"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    Gavin Zhou
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

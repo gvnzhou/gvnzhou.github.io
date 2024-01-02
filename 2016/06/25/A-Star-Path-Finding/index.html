@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="最近为了开发 王牌特工 这款小游戏，学习了A*寻路算法，来实现避开障碍物并抵达目标地点的功能。算法具体实现过程可以学习这篇文章,本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼- -）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A*寻路算法初探及Js实现寻路过程">
+<meta property="og:url" content="https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/index.html">
+<meta property="og:site_name" content="Gavin Zhou&#39;s Blog">
+<meta property="og:description" content="最近为了开发 王牌特工 这款小游戏，学习了A*寻路算法，来实现避开障碍物并抵达目标地点的功能。算法具体实现过程可以学习这篇文章,本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼- -）。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2016-06-25T22:12:55.000Z">
+<meta property="article:modified_time" content="2024-01-02T17:39:28.096Z">
+<meta property="article:author" content="Gavin Zhou">
+<meta property="article:tag" content="Canvas">
+<meta property="article:tag" content="A*寻路算法">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>A*寻路算法初探及Js实现寻路过程</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2016/09/09/remainingnumber/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2016/05/18/ECMAScript6-note2/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&text=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&title=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&is_video=false&description=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=A*寻路算法初探及Js实现寻路过程&body=Check out this article: https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&title=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&title=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&title=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&title=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&name=A*寻路算法初探及Js实现寻路过程&description=&lt;h3 id=&#34;最近为了开发-王牌特工-这款小游戏，学习了A-寻路算法，来实现避开障碍物并抵达目标地点的功能。&#34;&gt;&lt;a href=&#34;#最近为了开发-王牌特工-这款小游戏，学习了A-寻路算法，来实现避开障碍物并抵达目标地点的功能。&#34; class=&#34;headerlink&#34; title=&#34;最近为了开发 王牌特工 这款小游戏，学习了A*寻路算法，来实现避开障碍物并抵达目标地点的功能。&#34;&gt;&lt;/a&gt;&lt;font size=2&gt;最近为了开发 &lt;a href=&#34;http://javion.me/KingsMan/&#34;&gt;王牌特工&lt;/a&gt; 这款小游戏，学习了A*寻路算法，来实现避开障碍物并抵达目标地点的功能。&lt;/h3&gt;&lt;h3 id=&#34;算法具体实现过程可以学习这篇文章-本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼-）。&#34;&gt;&lt;a href=&#34;#算法具体实现过程可以学习这篇文章-本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼-）。&#34; class=&#34;headerlink&#34; title=&#34;算法具体实现过程可以学习这篇文章,本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼- -）。&#34;&gt;&lt;/a&gt;算法具体实现过程可以学习&lt;a href=&#34;http://www.cnblogs.com/technology/archive/2011/05/26/2058842.html&#34;&gt;这篇文章&lt;/a&gt;,本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼- -）。&lt;/font&gt;&lt;/h3&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&t=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E8%BF%91%E4%B8%BA%E4%BA%86%E5%BC%80%E5%8F%91-%E7%8E%8B%E7%89%8C%E7%89%B9%E5%B7%A5-%E8%BF%99%E6%AC%BE%E5%B0%8F%E6%B8%B8%E6%88%8F%EF%BC%8C%E5%AD%A6%E4%B9%A0%E4%BA%86A-%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95%EF%BC%8C%E6%9D%A5%E5%AE%9E%E7%8E%B0%E9%81%BF%E5%BC%80%E9%9A%9C%E7%A2%8D%E7%89%A9%E5%B9%B6%E6%8A%B5%E8%BE%BE%E7%9B%AE%E6%A0%87%E5%9C%B0%E7%82%B9%E7%9A%84%E5%8A%9F%E8%83%BD%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text">最近为了开发 王牌特工 这款小游戏，学习了A*寻路算法，来实现避开障碍物并抵达目标地点的功能。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B%E5%8F%AF%E4%BB%A5%E5%AD%A6%E4%B9%A0%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0-%E6%9C%AC%E7%AF%87%E4%B8%BB%E8%A6%81%E8%AE%B0%E5%BD%95%E6%88%91%E4%BD%BF%E7%94%A8Js%E5%AE%9E%E7%8E%B0%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95%E7%9A%84%E8%BF%87%E7%A8%8B%EF%BC%88%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%9C%9F%E6%98%AF%E5%A4%B4%E7%96%BC-%EF%BC%89%E3%80%82"><span class="toc-number">2.</span> <span class="toc-text">算法具体实现过程可以学习这篇文章,本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼- -）。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%814%E4%B8%AA%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%EF%BC%9A"><span class="toc-number"></span> <span class="toc-text">一、4个功能模块：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81A-%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number"></span> <span class="toc-text">二、A*寻路算法的实现</span></a>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        A*寻路算法初探及Js实现寻路过程
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Gavin Zhou</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2016-06-25T22:12:55.000Z" class="dt-published" itemprop="datePublished">2016-06-25</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/JavaScript/">JavaScript</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/A-%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95/" rel="tag">A*寻路算法</a>, <a class="p-category" href="/tags/Canvas/" rel="tag">Canvas</a>, <a class="p-category" href="/tags/JavaScript/" rel="tag">JavaScript</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h3 id="最近为了开发-王牌特工-这款小游戏，学习了A-寻路算法，来实现避开障碍物并抵达目标地点的功能。"><a href="#最近为了开发-王牌特工-这款小游戏，学习了A-寻路算法，来实现避开障碍物并抵达目标地点的功能。" class="headerlink" title="最近为了开发 王牌特工 这款小游戏，学习了A*寻路算法，来实现避开障碍物并抵达目标地点的功能。"></a><font size=2>最近为了开发 <a target="_blank" rel="noopener" href="http://javion.me/KingsMan/">王牌特工</a> 这款小游戏，学习了A*寻路算法，来实现避开障碍物并抵达目标地点的功能。</h3><h3 id="算法具体实现过程可以学习这篇文章-本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼-）。"><a href="#算法具体实现过程可以学习这篇文章-本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼-）。" class="headerlink" title="算法具体实现过程可以学习这篇文章,本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼- -）。"></a>算法具体实现过程可以学习<a target="_blank" rel="noopener" href="http://www.cnblogs.com/technology/archive/2011/05/26/2058842.html">这篇文章</a>,本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼- -）。</font></h3><span id="more"></span>
+
+<h2 id="一、4个功能模块："><a href="#一、4个功能模块：" class="headerlink" title="一、4个功能模块："></a>一、4个功能模块：</h2><ul>
+<li>二维方块地图</li>
+</ul>
+<p><font size=2>A*寻路算法是基于点到点的关系，而在游戏开发场景中，我们常常把地图划分成一个个小方块，通过二维数组记录每个方块的坐标值，从而可以定位到某个点。因此我们需要构建坐标系。我使用的是HTML5中的Canvas绘图，在创建2D上下文环境中以40X40为一方块分割画布。</font></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 每个方块对象具有的属性</span></span><br><span class="line"><span class="keyword">var</span> block = &#123;</span><br><span class="line">  <span class="attr">x</span>:……, <span class="comment">// 横坐标</span></span><br><span class="line">  <span class="attr">y</span>:……, <span class="comment">// 纵坐标</span></span><br><span class="line">  <span class="attr">G</span>:……, <span class="comment">// 到该点的消耗</span></span><br><span class="line">  <span class="attr">H</span>:……, <span class="comment">// 到终点的消耗</span></span><br><span class="line">  <span class="attr">F</span>:……, <span class="comment">// G + H</span></span><br><span class="line">  <span class="attr">parents</span>:…… <span class="comment">// 父节点</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>开启队列</li>
+</ul>
+<p><font size=2>存放需要遍历查找的方块</font></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 开启队列</span></span><br><span class="line"><span class="keyword">var</span> openList = (<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 存放开启队列</span></span><br><span class="line">  <span class="keyword">var</span> _openArr = [];</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="comment">// 添加到队列</span></span><br><span class="line">    <span class="attr">add</span>: <span class="keyword">function</span>(<span class="params">point</span>)&#123;……&#125;,</span><br><span class="line">    <span class="comment">// 计算队列长度</span></span><br><span class="line">    <span class="attr">count</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;……&#125;,</span><br><span class="line">    <span class="comment">// 得到开放队列中f值最小的点</span></span><br><span class="line">    <span class="attr">minPoint</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;……&#125;,</span><br><span class="line">    <span class="comment">// 删除某个点</span></span><br><span class="line">    <span class="attr">removeAt</span>: <span class="keyword">function</span>(<span class="params">index</span>) &#123;……&#125;,</span><br><span class="line">    <span class="comment">// 是否可以加入开启队列</span></span><br><span class="line">    <span class="attr">exists</span>: <span class="keyword">function</span>(<span class="params">obj</span>) &#123;……&#125;,</span><br><span class="line">    <span class="comment">// 点已经在开启队列中</span></span><br><span class="line">    <span class="attr">foundPoint</span>: <span class="keyword">function</span>(<span class="params">tempStart, end, point</span>) &#123;……&#125;,</span><br><span class="line">    <span class="comment">// 点不在开启队列中,计算G、H、F值</span></span><br><span class="line">    <span class="attr">notFoundPoint</span>: <span class="keyword">function</span>(<span class="params">tempStart, end, point</span>) &#123;……&#125;,</span><br><span class="line">    <span class="comment">// 是否到达目标点</span></span><br><span class="line">    <span class="attr">get</span>: <span class="keyword">function</span>(<span class="params">end</span>) &#123;……&#125;,</span><br><span class="line">    <span class="comment">// 队列初始化</span></span><br><span class="line">    <span class="attr">init</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;……&#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>关闭队列</li>
+</ul>
+<p><font size=2>存放不需要查找的方块</font></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 闭合队列</span></span><br><span class="line"><span class="keyword">var</span> closeList = (<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> _closeArr = [];</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">add</span>: <span class="keyword">function</span>(<span class="params">point</span>) &#123;……&#125;,</span><br><span class="line">    <span class="attr">init</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;……&#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>A*寻路算法函数</li>
+</ul>
+<p><font size=2>见下一节</font></p>
+<h2 id="二、A-寻路算法的实现"><a href="#二、A-寻路算法的实现" class="headerlink" title="二、A*寻路算法的实现"></a>二、A*寻路算法的实现</h2><ul>
+<li>A*寻路算法函数</li>
+</ul>
+<p><code>findPath</code>为寻路算法函数，该函数接受两个参数<code>start</code>(开始点)和 <code>end</code>(终点)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> findPath = <span class="keyword">function</span>(<span class="params">start, end</span>) &#123;</span><br><span class="line">  <span class="comment">// 是否抵达标志位</span></span><br><span class="line">  <span class="keyword">var</span> isArrive = <span class="literal">false</span>;</span><br><span class="line">  openList.<span class="title function_">add</span>(start);</span><br><span class="line">  <span class="comment">// 循环</span></span><br><span class="line">  <span class="keyword">while</span>(!isArrive)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 找出F值最小的点</span></span><br><span class="line">    <span class="keyword">var</span> tempStart = openList.<span class="title function_">minPoint</span>();</span><br><span class="line">    openList.<span class="title function_">removeAt</span>(<span class="number">0</span>);</span><br><span class="line">    closeList.<span class="title function_">add</span>(tempStart);</span><br><span class="line">    <span class="comment">// 找出它相邻的点</span></span><br><span class="line">    <span class="keyword">var</span> aroundPoints = <span class="title function_">sAroundPoints</span>(tempStart);</span><br><span class="line">    <span class="comment">// 遍历所有相邻的点</span></span><br><span class="line">    aroundPoints.<span class="title function_">forEach</span>(<span class="keyword">function</span>(<span class="params">item, index</span>) &#123;</span><br><span class="line">      <span class="comment">// 是否已经在开启队列中</span></span><br><span class="line">      <span class="keyword">if</span> (openList.<span class="title function_">exists</span>(item)) &#123;</span><br><span class="line">        <span class="comment">//计算G值, 如果比原来的大, 就什么都不做, 否则设置它的父节点为当前点,并更新G和F</span></span><br><span class="line">        openList.<span class="title function_">foundPoint</span>(tempStart, end, item);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//如果它们不在开始列表里, 就加入, 并设置父节点,并计算GHF</span></span><br><span class="line">        openList.<span class="title function_">notFoundPoint</span>(tempStart, end, item);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 是否抵达终点</span></span><br><span class="line">    openList.<span class="title function_">get</span>(end);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 找回路径</span></span><br><span class="line">  <span class="title function_">foundPathRoad</span>(end);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如何找回路径</li>
+</ul>
+<p>通过终点对象的parents属性值，逐层递归找到上级节点，将每个父节点存入数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foundPathRoad = <span class="keyword">function</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="string">&#x27;parents&#x27;</span> <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    roadArr.<span class="title function_">unshift</span>(obj);</span><br><span class="line">    <span class="variable language_">arguments</span>.<span class="title function_">callee</span>(obj.<span class="property">parents</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> roadArr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</font>
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E8%BF%91%E4%B8%BA%E4%BA%86%E5%BC%80%E5%8F%91-%E7%8E%8B%E7%89%8C%E7%89%B9%E5%B7%A5-%E8%BF%99%E6%AC%BE%E5%B0%8F%E6%B8%B8%E6%88%8F%EF%BC%8C%E5%AD%A6%E4%B9%A0%E4%BA%86A-%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95%EF%BC%8C%E6%9D%A5%E5%AE%9E%E7%8E%B0%E9%81%BF%E5%BC%80%E9%9A%9C%E7%A2%8D%E7%89%A9%E5%B9%B6%E6%8A%B5%E8%BE%BE%E7%9B%AE%E6%A0%87%E5%9C%B0%E7%82%B9%E7%9A%84%E5%8A%9F%E8%83%BD%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text">最近为了开发 王牌特工 这款小游戏，学习了A*寻路算法，来实现避开障碍物并抵达目标地点的功能。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B%E5%8F%AF%E4%BB%A5%E5%AD%A6%E4%B9%A0%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0-%E6%9C%AC%E7%AF%87%E4%B8%BB%E8%A6%81%E8%AE%B0%E5%BD%95%E6%88%91%E4%BD%BF%E7%94%A8Js%E5%AE%9E%E7%8E%B0%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95%E7%9A%84%E8%BF%87%E7%A8%8B%EF%BC%88%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%9C%9F%E6%98%AF%E5%A4%B4%E7%96%BC-%EF%BC%89%E3%80%82"><span class="toc-number">2.</span> <span class="toc-text">算法具体实现过程可以学习这篇文章,本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼- -）。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%814%E4%B8%AA%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%EF%BC%9A"><span class="toc-number"></span> <span class="toc-text">一、4个功能模块：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81A-%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number"></span> <span class="toc-text">二、A*寻路算法的实现</span></a>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&text=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&title=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&is_video=false&description=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=A*寻路算法初探及Js实现寻路过程&body=Check out this article: https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&title=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&title=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&title=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&title=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&name=A*寻路算法初探及Js实现寻路过程&description=&lt;h3 id=&#34;最近为了开发-王牌特工-这款小游戏，学习了A-寻路算法，来实现避开障碍物并抵达目标地点的功能。&#34;&gt;&lt;a href=&#34;#最近为了开发-王牌特工-这款小游戏，学习了A-寻路算法，来实现避开障碍物并抵达目标地点的功能。&#34; class=&#34;headerlink&#34; title=&#34;最近为了开发 王牌特工 这款小游戏，学习了A*寻路算法，来实现避开障碍物并抵达目标地点的功能。&#34;&gt;&lt;/a&gt;&lt;font size=2&gt;最近为了开发 &lt;a href=&#34;http://javion.me/KingsMan/&#34;&gt;王牌特工&lt;/a&gt; 这款小游戏，学习了A*寻路算法，来实现避开障碍物并抵达目标地点的功能。&lt;/h3&gt;&lt;h3 id=&#34;算法具体实现过程可以学习这篇文章-本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼-）。&#34;&gt;&lt;a href=&#34;#算法具体实现过程可以学习这篇文章-本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼-）。&#34; class=&#34;headerlink&#34; title=&#34;算法具体实现过程可以学习这篇文章,本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼- -）。&#34;&gt;&lt;/a&gt;算法具体实现过程可以学习&lt;a href=&#34;http://www.cnblogs.com/technology/archive/2011/05/26/2058842.html&#34;&gt;这篇文章&lt;/a&gt;,本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼- -）。&lt;/font&gt;&lt;/h3&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gavin0919.github.io/2016/06/25/A-Star-Path-Finding/&t=A*寻路算法初探及Js实现寻路过程"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    Gavin Zhou
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

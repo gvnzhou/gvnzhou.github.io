@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实现类似BootStrap的响应式12栏网格布局">
+<meta property="og:url" content="https://gavin0919.github.io/2016/04/07/gridlayouts/index.html">
+<meta property="og:site_name" content="Gavin Zhou&#39;s Blog">
+<meta property="og:description" content="今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://7xkwup.com1.z0.glb.clouddn.com/grid-elements.png">
+<meta property="article:published_time" content="2016-04-07T18:32:11.000Z">
+<meta property="article:modified_time" content="2024-01-02T17:39:28.096Z">
+<meta property="article:author" content="Gavin Zhou">
+<meta property="article:tag" content="CSS3">
+<meta property="article:tag" content="响应式">
+<meta property="article:tag" content="网格布局">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://7xkwup.com1.z0.glb.clouddn.com/grid-elements.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>实现类似BootStrap的响应式12栏网格布局</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2016/05/16/ECMAScript6-note1/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2016/03/20/semanteme/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gavin0919.github.io/2016/04/07/gridlayouts/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&text=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&title=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&is_video=false&description=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=实现类似BootStrap的响应式12栏网格布局&body=Check out this article: https://gavin0919.github.io/2016/04/07/gridlayouts/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&title=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&title=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&title=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&title=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&name=实现类似BootStrap的响应式12栏网格布局&description=&lt;h3 id=&#34;今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。&#34;&gt;&lt;a href=&#34;#今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。&#34; class=&#34;headerlink&#34; title=&#34; 今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。&#34;&gt;&lt;/a&gt;&lt;font size=2&gt; 今天研究了如何实现网格布局，主要学习了&lt;a href=&#34;http://j4n.co/blog/Creating-your-own-css-grid-system&#34;&gt;这篇文章&lt;/a&gt;中的内容。特写此篇博客作为总结。&lt;/font&gt;&lt;/h3&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gavin0919.github.io/2016/04/07/gridlayouts/&t=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8A%E5%A4%A9%E7%A0%94%E7%A9%B6%E4%BA%86%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%EF%BC%8C%E4%B8%BB%E8%A6%81%E5%AD%A6%E4%B9%A0%E4%BA%86%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E4%B8%AD%E7%9A%84%E5%86%85%E5%AE%B9%E3%80%82%E7%89%B9%E5%86%99%E6%AD%A4%E7%AF%87%E5%8D%9A%E5%AE%A2%E4%BD%9C%E4%B8%BA%E6%80%BB%E7%BB%93%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text"> 今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E7%9A%84%E7%94%A8%E9%80%94"><span class="toc-number"></span> <span class="toc-text">一、网格布局的用途</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80"><span class="toc-number"></span> <span class="toc-text">二、如何实现网格布局</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%B9%E5%99%A8%EF%BC%88container%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">1. 容器（container）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%A1%8C%EF%BC%88row%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">2. 行（row）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%88%97%EF%BC%88column%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">3. 列（column）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%A7%BD%EF%BC%88gutter%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">4. 槽（gutter）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%8C%E6%95%B4%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-number"></span> <span class="toc-text">三、完整的代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%88%9B%E5%BB%BA%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80"><span class="toc-number"></span> <span class="toc-text">四、创建响应式网格布局</span></a>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        实现类似BootStrap的响应式12栏网格布局
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Gavin Zhou</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2016-04-07T18:32:11.000Z" class="dt-published" itemprop="datePublished">2016-04-07</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/CSS3/">CSS3</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CSS3/" rel="tag">CSS3</a>, <a class="p-category" href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/" rel="tag">响应式</a>, <a class="p-category" href="/tags/%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80/" rel="tag">网格布局</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h3 id="今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。"><a href="#今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。" class="headerlink" title=" 今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。"></a><font size=2> 今天研究了如何实现网格布局，主要学习了<a target="_blank" rel="noopener" href="http://j4n.co/blog/Creating-your-own-css-grid-system">这篇文章</a>中的内容。特写此篇博客作为总结。</font></h3><span id="more"></span>
+
+<h2 id="一、网格布局的用途"><a href="#一、网格布局的用途" class="headerlink" title="一、网格布局的用途"></a>一、网格布局的用途</h2><p>网格布局的作用在于更有效地控制元素在网页中所占比例的大小。比如，博客中有一个留言板模块，在比较大的屏幕上，我们希望它占了右边 25% 的宽度，在手机等比较小的屏幕上，我们希望它占 100% 的宽度，出现在博客文章下方。网格布局是一种实现这一需求的办法，它的好处是，把所有的宽度分为固定栏数（常用 12 栏），从而更高效的控制元素宽度。</p>
+<h2 id="二、如何实现网格布局"><a href="#二、如何实现网格布局" class="headerlink" title="二、如何实现网格布局"></a>二、如何实现网格布局</h2><p><font size=2>一个网格系统所包括的元素</font><br><img src="http://7xkwup.com1.z0.glb.clouddn.com/grid-elements.png"></p>
+<p>如上图所见，一个基础的网格系统包括。</p>
+<ul>
+<li>容器（container）</li>
+<li>行（row）</li>
+<li>列（column）</li>
+<li>槽（gutter）</li>
+</ul>
+<h3 id="1-容器（container）"><a href="#1-容器（container）" class="headerlink" title="1. 容器（container）"></a>1. 容器（container）</h3><p>容器的目的是设置整个网格的宽度。容器的宽度一般为100%，可以设置一个最大的宽度值。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.grid-container</span> &#123;</span><br><span class="line">  <span class="attribute">width</span> : <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">max-width</span> : <span class="number">1200px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-行（row）"><a href="#2-行（row）" class="headerlink" title="2. 行（row）"></a>2. 行（row）</h3><p>行元素是用来包裹列（column），防止列浮动到容器外部。通过使用<code>clearfix</code>清除浮动。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*-- our cleafix hack -- */</span> </span><br><span class="line"><span class="selector-class">.row</span><span class="selector-pseudo">:before</span>, </span><br><span class="line"><span class="selector-class">.row</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>:<span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="attribute">display</span>: table;</span><br><span class="line">  <span class="attribute">clear</span>:both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-列（column）"><a href="#3-列（column）" class="headerlink" title="3. 列（column）"></a>3. 列（column）</h3><p>列是用来放置内容的区块，通过对其浮动，使其能在一行中呈现出来。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[class*=<span class="string">&#x27;col-&#x27;</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">min-height</span>: <span class="number">1px</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ps：<code>[class*=&#39;col-&#39;]</code>这个是正则的css，表示所有css以col开始的class都使用这个规则。</p>
+<p>另外，因为我们需要创建12栏的网格，所以每栏的宽度为 100%&#x2F;12（总宽度&#x2F;栏数）&#x3D; 8.33%。<br>得出</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.col-1</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">8.33%</span>; // <span class="number">1</span>个栏</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.col-2</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">16.66%</span>; // <span class="number">2</span>个栏</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.col-3</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">25%</span>; // <span class="number">3</span>个栏</span><br><span class="line">&#125;</span><br><span class="line">// 以此类推...</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-槽（gutter）"><a href="#4-槽（gutter）" class="headerlink" title="4. 槽（gutter）"></a>4. 槽（gutter）</h3><p>由图可知，槽是两列中的空隙。为了更方便的创建槽，通过设置CSS3中<code>box-sizing: border-box</code>，将W3C标准盒模型变为ie的盒模型，即内容部分包括了border和padding。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*-- setting border box on all elements inside the grid --*/</span></span><br><span class="line"><span class="selector-class">.grid-container</span> *&#123;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box; </span><br><span class="line">  <span class="attribute">width</span> : <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-attr">[class*=<span class="string">&#x27;col-&#x27;</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">min-height</span>: <span class="number">1px</span>; </span><br><span class="line">  <span class="attribute">width</span>: <span class="number">16.66%</span>; </span><br><span class="line">  <span class="comment">/*-- our gutter --*/</span></span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">12px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、完整的代码"><a href="#三、完整的代码" class="headerlink" title="三、完整的代码"></a>三、完整的代码</h2><p>HTML</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;grid-container&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-4&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-4&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-4&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-3&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-6&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-3&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>CSS</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.grid-container</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>; </span><br><span class="line">  <span class="attribute">max-width</span>: <span class="number">1200px</span>;      </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*-- our cleafix hack -- */</span> </span><br><span class="line"><span class="selector-class">.row</span><span class="selector-pseudo">:before</span>, </span><br><span class="line"><span class="selector-class">.row</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>:<span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="attribute">display</span>: table ;</span><br><span class="line">  <span class="attribute">clear</span>:both;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-attr">[class*=<span class="string">&#x27;col-&#x27;</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left; </span><br><span class="line">  <span class="attribute">min-height</span>: <span class="number">1px</span>; </span><br><span class="line">  <span class="attribute">width</span>: <span class="number">8.33%</span>;</span><br><span class="line">  <span class="comment">/*-- our gutter -- */</span></span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">12px</span>; </span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#FFDCDC</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.col-1</span> &#123;<span class="attribute">width</span>: <span class="number">8.33%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-2</span> &#123;<span class="attribute">width</span>: <span class="number">16.66%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-3</span> &#123;<span class="attribute">width</span>: <span class="number">25%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-4</span> &#123;<span class="attribute">width</span>: <span class="number">33.33%</span>&#125;</span><br><span class="line"><span class="selector-class">.col-5</span> &#123;<span class="attribute">width</span>: <span class="number">41.66%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-6</span> &#123;<span class="attribute">width</span>: <span class="number">50%</span>&#125;</span><br><span class="line"><span class="selector-class">.col-7</span> &#123;<span class="attribute">width</span>: <span class="number">58.33%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-8</span> &#123;<span class="attribute">width</span>: <span class="number">66.66%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-9</span> &#123;<span class="attribute">width</span>: <span class="number">75%</span>;&#125;</span><br><span class="line"><span class="selector-class">.col-10</span> &#123;<span class="attribute">width</span>: <span class="number">83.33%</span>&#125;</span><br><span class="line"><span class="selector-class">.col-11</span> &#123;<span class="attribute">width</span>: <span class="number">91.66%</span>&#125;</span><br><span class="line"><span class="selector-class">.col-12</span> &#123;<span class="attribute">width</span>: <span class="number">100%</span>&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="四、创建响应式网格布局"><a href="#四、创建响应式网格布局" class="headerlink" title="四、创建响应式网格布局"></a>四、创建响应式网格布局</h2><p>以 BootStrap 的网格系统为例，DOM 元素类名形如 col-md-4；其中 col 是“列” column 的缩写；md 是 medium 的缩写，适用于应屏幕宽度大于 768px 的场景；4 是占四栏的意思。因此，col-md-4 的意思是，在屏幕宽度大于 768px 时，该元素占四栏。</p>
+<p>由此通过使用CSS3中的媒体查询，区分不同屏幕宽度。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*-- 屏幕宽度小于768px -- */</span> </span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">768px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.col-sm-1</span> &#123;<span class="attribute">width</span>: <span class="number">8.33%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-sm-2</span> &#123;<span class="attribute">width</span>: <span class="number">16.66%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-sm-3</span> &#123;<span class="attribute">width</span>: <span class="number">25%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-sm-4</span> &#123;<span class="attribute">width</span>: <span class="number">33.33%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-sm-5</span> &#123;<span class="attribute">width</span>: <span class="number">41.66%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-sm-6</span> &#123;<span class="attribute">width</span>: <span class="number">50%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-sm-7</span> &#123;<span class="attribute">width</span>: <span class="number">58.33%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-sm-8</span> &#123;<span class="attribute">width</span>: <span class="number">66.66%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-sm-9</span> &#123;<span class="attribute">width</span>: <span class="number">75%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-sm-10</span> &#123;<span class="attribute">width</span>: <span class="number">83.33%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-sm-11</span> &#123;<span class="attribute">width</span>: <span class="number">91.66%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-sm-12</span> &#123;<span class="attribute">width</span>: <span class="number">100%</span>;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*-- 屏幕宽度大于768px -- */</span> </span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">768px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.col-md-1</span> &#123;<span class="attribute">width</span>: <span class="number">8.33%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-md-2</span> &#123;<span class="attribute">width</span>: <span class="number">16.66%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-md-3</span> &#123;<span class="attribute">width</span>: <span class="number">25%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-md-4</span> &#123;<span class="attribute">width</span>: <span class="number">33.33%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-md-5</span> &#123;<span class="attribute">width</span>: <span class="number">41.66%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-md-6</span> &#123;<span class="attribute">width</span>: <span class="number">50%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-md-7</span> &#123;<span class="attribute">width</span>: <span class="number">58.33%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-md-8</span> &#123;<span class="attribute">width</span>: <span class="number">66.66%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-md-9</span> &#123;<span class="attribute">width</span>: <span class="number">75%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-md-10</span> &#123;<span class="attribute">width</span>: <span class="number">83.33%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-md-11</span> &#123;<span class="attribute">width</span>: <span class="number">91.66%</span>;&#125;</span><br><span class="line">  <span class="selector-class">.col-md-12</span> &#123;<span class="attribute">width</span>: <span class="number">100%</span>;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>HTML</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;grid-container&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-md-4 col-sm-6&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-md-4 col-sm-6&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-md-4 col-sm-12&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-md-3 col-sm-3&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-md-6 col-sm-6&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-md-3 col-sm-3&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-md-1 col-sm-2&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-md-1 col-sm-2&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-md-2 col-sm-8&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-md-2 col-sm-3&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-md-6 col-sm-3&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8A%E5%A4%A9%E7%A0%94%E7%A9%B6%E4%BA%86%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%EF%BC%8C%E4%B8%BB%E8%A6%81%E5%AD%A6%E4%B9%A0%E4%BA%86%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E4%B8%AD%E7%9A%84%E5%86%85%E5%AE%B9%E3%80%82%E7%89%B9%E5%86%99%E6%AD%A4%E7%AF%87%E5%8D%9A%E5%AE%A2%E4%BD%9C%E4%B8%BA%E6%80%BB%E7%BB%93%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text"> 今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80%E7%9A%84%E7%94%A8%E9%80%94"><span class="toc-number"></span> <span class="toc-text">一、网格布局的用途</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80"><span class="toc-number"></span> <span class="toc-text">二、如何实现网格布局</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%B9%E5%99%A8%EF%BC%88container%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">1. 容器（container）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%A1%8C%EF%BC%88row%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">2. 行（row）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%88%97%EF%BC%88column%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">3. 列（column）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%A7%BD%EF%BC%88gutter%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">4. 槽（gutter）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%8C%E6%95%B4%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-number"></span> <span class="toc-text">三、完整的代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%88%9B%E5%BB%BA%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80"><span class="toc-number"></span> <span class="toc-text">四、创建响应式网格布局</span></a>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gavin0919.github.io/2016/04/07/gridlayouts/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&text=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&title=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&is_video=false&description=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=实现类似BootStrap的响应式12栏网格布局&body=Check out this article: https://gavin0919.github.io/2016/04/07/gridlayouts/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&title=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&title=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&title=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&title=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gavin0919.github.io/2016/04/07/gridlayouts/&name=实现类似BootStrap的响应式12栏网格布局&description=&lt;h3 id=&#34;今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。&#34;&gt;&lt;a href=&#34;#今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。&#34; class=&#34;headerlink&#34; title=&#34; 今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。&#34;&gt;&lt;/a&gt;&lt;font size=2&gt; 今天研究了如何实现网格布局，主要学习了&lt;a href=&#34;http://j4n.co/blog/Creating-your-own-css-grid-system&#34;&gt;这篇文章&lt;/a&gt;中的内容。特写此篇博客作为总结。&lt;/font&gt;&lt;/h3&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gavin0919.github.io/2016/04/07/gridlayouts/&t=实现类似BootStrap的响应式12栏网格布局"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    Gavin Zhou
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

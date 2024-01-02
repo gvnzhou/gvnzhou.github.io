@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="JS实现图片延迟加载 需求：根据读者阅读顺序逐步加载漫画分镜，达到节省用户流量，提升用户体验和减少服务器处理请求的目的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实习知识点总结(4)">
+<meta property="og:url" content="https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/index.html">
+<meta property="og:site_name" content="Gavin Zhou&#39;s Blog">
+<meta property="og:description" content="JS实现图片延迟加载 需求：根据读者阅读顺序逐步加载漫画分镜，达到节省用户流量，提升用户体验和减少服务器处理请求的目的。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2016-02-26T19:32:35.000Z">
+<meta property="article:modified_time" content="2024-01-02T17:39:28.096Z">
+<meta property="article:author" content="Gavin Zhou">
+<meta property="article:tag" content="Canvas">
+<meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="移动web开发">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>实习知识点总结(4)</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2016/03/04/Knowledge-point-summary-5/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2016/01/29/Knowledge-point-summary-3/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&text=实习知识点总结(4)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&title=实习知识点总结(4)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&is_video=false&description=实习知识点总结(4)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=实习知识点总结(4)&body=Check out this article: https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&title=实习知识点总结(4)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&title=实习知识点总结(4)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&title=实习知识点总结(4)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&title=实习知识点总结(4)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&name=实习知识点总结(4)&description=&lt;h2 id=&#34;JS实现图片延迟加载&#34;&gt;&lt;a href=&#34;#JS实现图片延迟加载&#34; class=&#34;headerlink&#34; title=&#34;JS实现图片延迟加载&#34;&gt;&lt;/a&gt;JS实现图片延迟加载&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;需求：&lt;br&gt;根据读者阅读顺序逐步加载漫画分镜，达到节省用户流量，提升用户体验和减少服务器处理请求的目的。&lt;/li&gt;
+&lt;/ul&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&t=实习知识点总结(4)"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JS%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD"><span class="toc-number">1.</span> <span class="toc-text">JS实现图片延迟加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">实现过程：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        实习知识点总结(4)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Gavin Zhou</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2016-02-26T19:32:35.000Z" class="dt-published" itemprop="datePublished">2016-02-26</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E5%AE%9E%E4%B9%A0%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">实习知识点总结</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Canvas/" rel="tag">Canvas</a>, <a class="p-category" href="/tags/Javascript/" rel="tag">Javascript</a>, <a class="p-category" href="/tags/%E7%A7%BB%E5%8A%A8web%E5%BC%80%E5%8F%91/" rel="tag">移动web开发</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="JS实现图片延迟加载"><a href="#JS实现图片延迟加载" class="headerlink" title="JS实现图片延迟加载"></a>JS实现图片延迟加载</h2><ul>
+<li>需求：<br>根据读者阅读顺序逐步加载漫画分镜，达到节省用户流量，提升用户体验和减少服务器处理请求的目的。</li>
+</ul>
+<span id="more"></span>
+
+<ul>
+<li>思路：<br>加载一组很小的icon去充当图片的占位符，监听窗口滚动，通过判断图片距离窗口顶部的距离，判断分镜是否将进入窗口可见区域，将icon地址替换为真正的图片地址。</li>
+</ul>
+<h2 id="实现过程："><a href="#实现过程：" class="headerlink" title="实现过程："></a>实现过程：</h2><ol>
+<li>给img标签增加一个自定义属性data-original用于存储分镜真正的加载地址，而此时src链接的地址是一张很小很小的icon。</li>
+<li>计算漫画分镜是否进入窗口可视区域，需要获取的数据：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bodyHeight = 窗口可视区域高度 ;</span><br><span class="line"><span class="keyword">var</span> scrollHeight = 页面滚动的高度 ;</span><br><span class="line"><span class="keyword">var</span> imgTop = 等待加载的图片分镜距离窗口顶部的距离 ;</span><br><span class="line">监听窗口滚动时执行函数</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">onscroll</span>= <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line"><span class="title class_">If</span> ((imgTop - scrollHeight) &lt;= bodyHeight) &#123;</span><br><span class="line"><span class="comment">// 分镜进入可视区域</span></span><br><span class="line"><span class="comment">// 将分镜的src替换为存在当前img标签的data-origina中的真正分镜地址</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>移动web端判断手指上滑还是下滑<br>由于移动端没有鼠标事件，需要通过touchstart、touchmove、touchend去监听触摸事件。Touchstart记录初始位置，touchmove记录按住屏幕移动。<br>判断很简单，touchmove的最后坐标减去touchstart的起始坐标，X的结果如果正数，则说明手指是从左往右划动；X的结果如果负数，则说明手指是从右往左划动；Y的结果如果正数，则说明手指是从上往下划动；Y的结果如果负数，则说明手指是从下往上划动。<br>这在逻辑上没有任何问题。但在实际操作中，手指的上下滑动其实是很难直上直下的，只要稍微有点斜，就会被X轴的判断先行接管。因此就需要去增加一个判断，比较哪个的差值更大即可。</li>
+<li>跳转到历史分镜<br>通过监听touchstart事件，去记录当前手指所在的分镜号，并记录此分镜。<br>当页面加载时首先判断是否存在历史分镜号，若有，去查找该序号的img为其设置一个id，然后跳转到该节点。<br>window.location.hash 属性<br>location是javascript里边管理地址栏的内置对象，比如location.href就管理页面的url，用location.href&#x3D;url就可以直接将页面重定向url。而location.hash则可以用来获取或设置页面的标签值。比如<a target="_blank" rel="noopener" href="http://localhost,此时将location.hash/">http://localhost，此时将location.hash</a> &#x3D; go（go为页面某个节点的id值），页面就会跳转到这个锚点上。</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JS%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD"><span class="toc-number">1.</span> <span class="toc-text">JS实现图片延迟加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">实现过程：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&text=实习知识点总结(4)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&title=实习知识点总结(4)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&is_video=false&description=实习知识点总结(4)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=实习知识点总结(4)&body=Check out this article: https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&title=实习知识点总结(4)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&title=实习知识点总结(4)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&title=实习知识点总结(4)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&title=实习知识点总结(4)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&name=实习知识点总结(4)&description=&lt;h2 id=&#34;JS实现图片延迟加载&#34;&gt;&lt;a href=&#34;#JS实现图片延迟加载&#34; class=&#34;headerlink&#34; title=&#34;JS实现图片延迟加载&#34;&gt;&lt;/a&gt;JS实现图片延迟加载&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;需求：&lt;br&gt;根据读者阅读顺序逐步加载漫画分镜，达到节省用户流量，提升用户体验和减少服务器处理请求的目的。&lt;/li&gt;
+&lt;/ul&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gavin0919.github.io/2016/02/26/Knowledge-point-summary-4/&t=实习知识点总结(4)"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    Gavin Zhou
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

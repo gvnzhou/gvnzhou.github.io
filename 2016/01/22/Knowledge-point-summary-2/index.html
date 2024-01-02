@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Css中display:inline-block会将对象呈递为内联对象，但是对象的内容作为块对象呈递。也就是说，可以给该内联对象设置宽度和高度，和周围的元素保持在一行，允许空格。兼容性：主流浏览器均支持inline-block。IE6、IE7不识别inline-block，可以使用zoom:1触发layout，实现inline-block。（“Layout”是一个 IE&#x2F;Win的私有概念">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实习知识点总结(2)">
+<meta property="og:url" content="https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/index.html">
+<meta property="og:site_name" content="Gavin Zhou&#39;s Blog">
+<meta property="og:description" content="Css中display:inline-block会将对象呈递为内联对象，但是对象的内容作为块对象呈递。也就是说，可以给该内联对象设置宽度和高度，和周围的元素保持在一行，允许空格。兼容性：主流浏览器均支持inline-block。IE6、IE7不识别inline-block，可以使用zoom:1触发layout，实现inline-block。（“Layout”是一个 IE&#x2F;Win的私有概念">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2016-01-22T19:32:35.000Z">
+<meta property="article:modified_time" content="2024-01-02T17:39:28.096Z">
+<meta property="article:author" content="Gavin Zhou">
+<meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>实习知识点总结(2)</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2016/01/29/Knowledge-point-summary-3/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2016/01/15/Knowledge-point-summary-1/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&text=实习知识点总结(2)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&title=实习知识点总结(2)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&is_video=false&description=实习知识点总结(2)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=实习知识点总结(2)&body=Check out this article: https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&title=实习知识点总结(2)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&title=实习知识点总结(2)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&title=实习知识点总结(2)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&title=实习知识点总结(2)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&name=实习知识点总结(2)&description=&lt;h2 id=&#34;Css中display-inline-block&#34;&gt;&lt;a href=&#34;#Css中display-inline-block&#34; class=&#34;headerlink&#34; title=&#34;Css中display:inline-block&#34;&gt;&lt;/a&gt;Css中display:inline-block&lt;/h2&gt;&lt;p&gt;会将对象呈递为内联对象，但是对象的内容作为块对象呈递。也就是说，可以给该内联对象设置宽度和高度，和周围的元素保持在一行，允许空格。&lt;br&gt;兼容性：&lt;br&gt;主流浏览器均支持inline-block。&lt;br&gt;IE6、IE7不识别inline-block，可以使用zoom:1触发layout，实现inline-block。（“Layout”是一个 IE&amp;#x2F;Win的私有概念，它决定了一个元素如何显示以及约束其包含的内容、如何与其他元素交互和建立联系、如何响应和传递应用程序事件&amp;#x2F;用户事件等。）&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&t=实习知识点总结(2)"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Css%E4%B8%ADdisplay-inline-block"><span class="toc-number">1.</span> <span class="toc-text">Css中display:inline-block</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E4%B8%8E%E4%BA%8B%E4%BB%B6%E6%8D%95%E8%8E%B7"><span class="toc-number"></span> <span class="toc-text">事件冒泡与事件捕获</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript%E7%9A%84-addEventListener-%E6%96%B9%E6%B3%95"><span class="toc-number"></span> <span class="toc-text">JavaScript的 addEventListener()方法</span></a>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        实习知识点总结(2)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Gavin Zhou</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2016-01-22T19:32:35.000Z" class="dt-published" itemprop="datePublished">2016-01-22</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/%E5%AE%9E%E4%B9%A0%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">实习知识点总结</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CSS/" rel="tag">CSS</a>, <a class="p-category" href="/tags/Javascript/" rel="tag">Javascript</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="Css中display-inline-block"><a href="#Css中display-inline-block" class="headerlink" title="Css中display:inline-block"></a>Css中display:inline-block</h2><p>会将对象呈递为内联对象，但是对象的内容作为块对象呈递。也就是说，可以给该内联对象设置宽度和高度，和周围的元素保持在一行，允许空格。<br>兼容性：<br>主流浏览器均支持inline-block。<br>IE6、IE7不识别inline-block，可以使用zoom:1触发layout，实现inline-block。（“Layout”是一个 IE&#x2F;Win的私有概念，它决定了一个元素如何显示以及约束其包含的内容、如何与其他元素交互和建立联系、如何响应和传递应用程序事件&#x2F;用户事件等。）</p>
+<span id="more"></span> 
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">通过<span class="selector-class">.clearfix</span>来清除浮动</span><br><span class="line">// 在类名为”clearfix”的元素内最后面加入内容</span><br><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span> &#123;   </span><br><span class="line">// 内容为”.”就是一个英文的句号而已。也可以不写。 </span><br><span class="line"><span class="attribute">content</span>: <span class="string">&quot;.&quot;</span>; </span><br><span class="line">// 加入的这个元素转换为块级元素。</span><br><span class="line"><span class="attribute">display</span>: block;</span><br><span class="line">// 清除左右两边浮动</span><br><span class="line">  <span class="attribute">clear</span>: both;  </span><br><span class="line">// 可见度设为隐藏。和<span class="attribute">display</span>:none;不同。<span class="attribute">visibility</span>:hidden;仍然占据空间，只是看不到而已； </span><br><span class="line"><span class="attribute">visibility</span>: hidden; </span><br><span class="line">&#125; </span><br><span class="line"><span class="selector-class">.clearfix</span> &#123; *zoom:<span class="number">1</span>;&#125; // IE6/IE7不支持<span class="selector-pseudo">:after</span>伪类，利用zoom:<span class="number">1</span>触发layout实现清除浮动。</span><br></pre></td></tr></table></figure>
+<h1 id="事件冒泡与事件捕获"><a href="#事件冒泡与事件捕获" class="headerlink" title="事件冒泡与事件捕获"></a>事件冒泡与事件捕获</h1><p>事件冒泡即从事件开始由最具体的节点接收，然后逐级向上传播到较为不具体的节点。<br>比如点击了一个<div>元素，click事件会按如下顺序传播：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt; ---&gt; &lt;body&gt; ---&gt; &lt;html&gt; ---&gt; document</span><br></pre></td></tr></table></figure>
+<p>事件捕获则先从最不具体的节点开始接收，最具体的节点最后接收到事件。<br>比如点击了一个<div>元素，click事件会按如下顺序传播：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Document ---&gt; &lt;html&gt; ---&gt; &lt;body&gt; ---&gt; &lt;div&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="JavaScript的-addEventListener-方法"><a href="#JavaScript的-addEventListener-方法" class="headerlink" title="JavaScript的 addEventListener()方法"></a>JavaScript的 addEventListener()方法</h1><p>这个方法为事件目标注册事件处理程序。<br>addEventListener()包含三个参数：要处理的事件名、事件处理程序的函数、布尔值。<br>布尔值通常传false，表示在冒泡阶段调用事件处理程序。传true，那么函数将在事件捕获阶段处理程序。<br>相对于直接设置的文档元素事件处理程序的属性，该方法的优点可以对同一对象、同一事件注册多个处理程序。多个处理程序会按照添加它们的顺序触发。<br>addEventListener()添加的事件处理程序只能使用removeEventListener()移除。并且要求传入的参数与添加事件处理程序的参数一致才行。<br>但是不兼容IE8及以下，IE有专门的事件处理程序：attachEvent()和detachEvent();但是由于IE8及更早的版本支持事件冒泡，所以用通过该方法添加的事件处理程序会添加到冒泡阶段。并且事件处理程序的执行顺序与其添加顺序相反。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Css%E4%B8%ADdisplay-inline-block"><span class="toc-number">1.</span> <span class="toc-text">Css中display:inline-block</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E4%B8%8E%E4%BA%8B%E4%BB%B6%E6%8D%95%E8%8E%B7"><span class="toc-number"></span> <span class="toc-text">事件冒泡与事件捕获</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript%E7%9A%84-addEventListener-%E6%96%B9%E6%B3%95"><span class="toc-number"></span> <span class="toc-text">JavaScript的 addEventListener()方法</span></a>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&text=实习知识点总结(2)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&title=实习知识点总结(2)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&is_video=false&description=实习知识点总结(2)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=实习知识点总结(2)&body=Check out this article: https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&title=实习知识点总结(2)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&title=实习知识点总结(2)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&title=实习知识点总结(2)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&title=实习知识点总结(2)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&name=实习知识点总结(2)&description=&lt;h2 id=&#34;Css中display-inline-block&#34;&gt;&lt;a href=&#34;#Css中display-inline-block&#34; class=&#34;headerlink&#34; title=&#34;Css中display:inline-block&#34;&gt;&lt;/a&gt;Css中display:inline-block&lt;/h2&gt;&lt;p&gt;会将对象呈递为内联对象，但是对象的内容作为块对象呈递。也就是说，可以给该内联对象设置宽度和高度，和周围的元素保持在一行，允许空格。&lt;br&gt;兼容性：&lt;br&gt;主流浏览器均支持inline-block。&lt;br&gt;IE6、IE7不识别inline-block，可以使用zoom:1触发layout，实现inline-block。（“Layout”是一个 IE&amp;#x2F;Win的私有概念，它决定了一个元素如何显示以及约束其包含的内容、如何与其他元素交互和建立联系、如何响应和传递应用程序事件&amp;#x2F;用户事件等。）&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gavin0919.github.io/2016/01/22/Knowledge-point-summary-2/&t=实习知识点总结(2)"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    Gavin Zhou
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/gavin0919">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

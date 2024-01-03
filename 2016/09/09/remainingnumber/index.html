@@ -9,12 +9,12 @@
     <meta name="description" content="今天，朋友负责运营的论坛需要制作一个报名剩余人数动态减少的效果，但是并没有服务器提供的当前真实剩余人数。 身为程序员的我，只好帮忙实现这个功能了。 需求： 假设当前1500人（不知道真实的剩余名额），此后每20分钟会少掉一个名额，到截止那天可能会有剩余名额。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Js模拟剩余名额动态减少功能">
-<meta property="og:url" content="https://gavin0919.github.io/2016/09/09/remainingnumber/index.html">
+<meta property="og:url" content="http://hackergavin.com/2016/09/09/remainingnumber/index.html">
 <meta property="og:site_name" content="Gavin Zhou&#39;s Blog">
 <meta property="og:description" content="今天，朋友负责运营的论坛需要制作一个报名剩余人数动态减少的效果，但是并没有服务器提供的当前真实剩余人数。 身为程序员的我，只好帮忙实现这个功能了。 需求： 假设当前1500人（不知道真实的剩余名额），此后每20分钟会少掉一个名额，到截止那天可能会有剩余名额。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2016-09-09T19:32:35.000Z">
-<meta property="article:modified_time" content="2024-01-02T17:39:28.096Z">
+<meta property="article:modified_time" content="2024-01-03T06:43:29.712Z">
 <meta property="article:author" content="Gavin Zhou">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -98,19 +98,19 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gavin0919.github.io/2016/09/09/remainingnumber/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&text=Js模拟剩余名额动态减少功能"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&is_video=false&description=Js模拟剩余名额动态减少功能"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Js模拟剩余名额动态减少功能&body=Check out this article: https://gavin0919.github.io/2016/09/09/remainingnumber/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&name=Js模拟剩余名额动态减少功能&description=&lt;p&gt;今天，朋友负责运营的论坛需要制作一个报名剩余人数动态减少的效果，但是并没有服务器提供的当前真实剩余人数。&lt;/p&gt;
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://hackergavin.com/2016/09/09/remainingnumber/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://hackergavin.com/2016/09/09/remainingnumber/&text=Js模拟剩余名额动态减少功能"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://hackergavin.com/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://hackergavin.com/2016/09/09/remainingnumber/&is_video=false&description=Js模拟剩余名额动态减少功能"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Js模拟剩余名额动态减少功能&body=Check out this article: http://hackergavin.com/2016/09/09/remainingnumber/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://hackergavin.com/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://hackergavin.com/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://hackergavin.com/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://hackergavin.com/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://hackergavin.com/2016/09/09/remainingnumber/&name=Js模拟剩余名额动态减少功能&description=&lt;p&gt;今天，朋友负责运营的论坛需要制作一个报名剩余人数动态减少的效果，但是并没有服务器提供的当前真实剩余人数。&lt;/p&gt;
 &lt;p&gt;身为程序员的我，只好帮忙实现这个功能了。&lt;/p&gt;
 &lt;p&gt;需求： 假设当前1500人（不知道真实的剩余名额），此后每20分钟会少掉一个名额，到截止那天可能会有剩余名额。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gavin0919.github.io/2016/09/09/remainingnumber/&t=Js模拟剩余名额动态减少功能"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://hackergavin.com/2016/09/09/remainingnumber/&t=Js模拟剩余名额动态减少功能"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -214,19 +214,19 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gavin0919.github.io/2016/09/09/remainingnumber/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&text=Js模拟剩余名额动态减少功能"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&is_video=false&description=Js模拟剩余名额动态减少功能"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Js模拟剩余名额动态减少功能&body=Check out this article: https://gavin0919.github.io/2016/09/09/remainingnumber/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gavin0919.github.io/2016/09/09/remainingnumber/&name=Js模拟剩余名额动态减少功能&description=&lt;p&gt;今天，朋友负责运营的论坛需要制作一个报名剩余人数动态减少的效果，但是并没有服务器提供的当前真实剩余人数。&lt;/p&gt;
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://hackergavin.com/2016/09/09/remainingnumber/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://hackergavin.com/2016/09/09/remainingnumber/&text=Js模拟剩余名额动态减少功能"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://hackergavin.com/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://hackergavin.com/2016/09/09/remainingnumber/&is_video=false&description=Js模拟剩余名额动态减少功能"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Js模拟剩余名额动态减少功能&body=Check out this article: http://hackergavin.com/2016/09/09/remainingnumber/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://hackergavin.com/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://hackergavin.com/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://hackergavin.com/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://hackergavin.com/2016/09/09/remainingnumber/&title=Js模拟剩余名额动态减少功能"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://hackergavin.com/2016/09/09/remainingnumber/&name=Js模拟剩余名额动态减少功能&description=&lt;p&gt;今天，朋友负责运营的论坛需要制作一个报名剩余人数动态减少的效果，但是并没有服务器提供的当前真实剩余人数。&lt;/p&gt;
 &lt;p&gt;身为程序员的我，只好帮忙实现这个功能了。&lt;/p&gt;
 &lt;p&gt;需求： 假设当前1500人（不知道真实的剩余名额），此后每20分钟会少掉一个名额，到截止那天可能会有剩余名额。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gavin0919.github.io/2016/09/09/remainingnumber/&t=Js模拟剩余名额动态减少功能"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://hackergavin.com/2016/09/09/remainingnumber/&t=Js模拟剩余名额动态减少功能"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

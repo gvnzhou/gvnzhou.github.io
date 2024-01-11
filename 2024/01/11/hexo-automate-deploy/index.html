@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="距离上次写博客已经过去了 6 年， 最近计划重新开始写博客，所以把原来的 Hexo 项目老代码修整了下，搞了下部署。 创建 Hexo 项目因为原来我的 Hexo 项目是大概 6 年前的版本了，在部署的时候遇到 Hexo 生成不了 html 的问题。所以选择重新安装最新版本的 Hexo，然后直接迁移 source 文件夹即可。 创建 Github 仓库需要在 GitHub 建好两个仓库，为什么是两个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages">
+<meta property="og:url" content="https://hackergavin.com/2024/01/11/hexo-automate-deploy/index.html">
+<meta property="og:site_name" content="Gavin Zhou&#39;s Blog">
+<meta property="og:description" content="距离上次写博客已经过去了 6 年， 最近计划重新开始写博客，所以把原来的 Hexo 项目老代码修整了下，搞了下部署。 创建 Hexo 项目因为原来我的 Hexo 项目是大概 6 年前的版本了，在部署的时候遇到 Hexo 生成不了 html 的问题。所以选择重新安装最新版本的 Hexo，然后直接迁移 source 文件夹即可。 创建 Github 仓库需要在 GitHub 建好两个仓库，为什么是两个">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hackergavin.com/2024/01/11/hexo-automate-deploy/developer-setting.png">
+<meta property="og:image" content="https://hackergavin.com/2024/01/11/hexo-automate-deploy/personal-access-tokens.png">
+<meta property="og:image" content="https://hackergavin.com/2024/01/11/hexo-automate-deploy/new-personal-access-token.png">
+<meta property="og:image" content="https://hackergavin.com/2024/01/11/hexo-automate-deploy/copy-token.png">
+<meta property="og:image" content="https://hackergavin.com/2024/01/11/hexo-automate-deploy/new-secret.png">
+<meta property="article:published_time" content="2024-01-11T21:42:11.000Z">
+<meta property="article:modified_time" content="2024-01-11T13:31:58.792Z">
+<meta property="article:author" content="Gavin Zhou">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hackergavin.com/2024/01/11/hexo-automate-deploy/developer-setting.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B9T0DG36YT"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-B9T0DG36YT');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/gvnzhou">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2017/12/04/wap-page-self-adaption/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://hackergavin.com/2024/01/11/hexo-automate-deploy/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&text=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&title=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&is_video=false&description=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages&body=Check out this article: https://hackergavin.com/2024/01/11/hexo-automate-deploy/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&title=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&title=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&title=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&title=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&name=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&t=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-Hexo-%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text">创建 Hexo 项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-Github-%E4%BB%93%E5%BA%93"><span class="toc-number">2.</span> <span class="toc-text">创建 Github 仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C%EF%BC%88Personal-Access-Token%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">创建个人访问令牌（Personal Access Token）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-Github-Actions-%E8%84%9A%E6%9C%AC"><span class="toc-number">4.</span> <span class="toc-text">创建 Github Actions 脚本</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Gavin Zhou</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-01-11T21:42:11.000Z" class="dt-published" itemprop="datePublished">2024-01-11</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>距离上次写博客已经过去了 6 年， 最近计划重新开始写博客，所以把原来的 Hexo 项目老代码修整了下，搞了下部署。</p>
+<h2 id="创建-Hexo-项目"><a href="#创建-Hexo-项目" class="headerlink" title="创建 Hexo 项目"></a>创建 Hexo 项目</h2><p>因为原来我的 Hexo 项目是大概 6 年前的版本了，在部署的时候遇到 Hexo 生成不了 html 的问题。所以选择重新<a target="_blank" rel="noopener" href="https://hexo.io/docs/">安装最新版本的 Hexo</a>，然后直接迁移 source 文件夹即可。</p>
+<h2 id="创建-Github-仓库"><a href="#创建-Github-仓库" class="headerlink" title="创建 Github 仓库"></a>创建 Github 仓库</h2><p>需要在 GitHub 建好两个仓库，为什么是两个？一个仓库也是可以的，直接参考<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/github-pages">Hexo 官方部署方案</a>，流程简单很多。</p>
+<p>我这里使用两个仓库目的主要是希望博客源码仓库私有化和 Github Pages 仓库分开管理，单纯个人喜好。所以后续部署会跟上面 Hexo 官方文档上部署方法有点不同。</p>
+<ul>
+<li><strong>Hexo 项目仓库</strong></li>
+<li><strong>username.github.io 仓库</strong><ul>
+<li>username 为 github 的账号名字。其他命名也是可以的，只是访问路径会变成 username.github.io&#x2F;&lt;仓库名&gt;</li>
+</ul>
+</li>
+</ul>
+<h2 id="创建个人访问令牌（Personal-Access-Token）"><a href="#创建个人访问令牌（Personal-Access-Token）" class="headerlink" title="创建个人访问令牌（Personal Access Token）"></a>创建个人访问令牌（Personal Access Token）</h2><p>因为我们需要在 <strong>Hexo 项目仓库</strong> 执行 <strong>Github Actions</strong> 向 <strong>username.github.io 仓库</strong>推送代码，由于 Github 权限限制，我们需要在 GitHub 账户中创建一个具有足够权限的<strong>个人访问令牌（Personal Access Token，简称 PAT）</strong>。这个令牌需要有足够的权限来修改仓库。</p>
+<ol>
+<li><p>点击右上角头像 -&gt; 打开 <strong>Settings</strong> -&gt; 左边栏滚到最后找到 <strong>Develop Setting</strong> 打开，如图</p>
+<img src="./developer-setting.png" alt="Developer Setting" width="350">
+</li>
+<li><p>找到 <strong>Personal Access Token</strong> 点击 <strong>Tokens（classic）</strong> -&gt; 选择 <strong>Generate new token (classic)</strong> ，如图</p>
+</li>
+</ol>
+  <img src="./personal-access-tokens.png" alt="personal-access-tokens">
+
+<ol start="3">
+<li>给令牌起个名字并且勾选红框中的 <strong>repo</strong> 的访问权限，然后点击生成 <strong>token</strong>（<strong>注意：</strong> 确保复制并安全地保存这个令牌。GitHub 不会再次显示这个令牌，所以这是你唯一的机会复制它），如图</li>
+</ol>
+  <img src="./new-personal-access-token.png" alt="new-personal-access-token">
+
+  <img src="./copy-token.png" alt="copy-token" style="margin-top: 10px">
+
+<ol start="4">
+<li>将生成的 <strong>PAT</strong> 添加到你的博客源代码仓库的 <strong>Secrets</strong>，名字填入 <strong>PERSONAL_TOKEN</strong> 后面会用到这个变量名，如图</li>
+</ol>
+  <img src="./new-secret.png" alt="new-secret">
+
+<h2 id="创建-Github-Actions-脚本"><a href="#创建-Github-Actions-脚本" class="headerlink" title="创建 Github Actions 脚本"></a>创建 Github Actions 脚本</h2><ol>
+<li><p>在你的 Hexo 项目根目录下创建一个 <strong>.github&#x2F;workflows</strong> 文件夹（如果尚未存在）。</p>
+</li>
+<li><p>在该文件夹内创建一个新的 <strong>YAML</strong> 文件（例如 hexo-deploy.yml），用于定义 <strong>GitHub Actions</strong> 工作流。</p>
+</li>
+<li><p>复制如下配置到 <strong>YAML</strong> 文件</p>
+</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Hexo</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">master</span> <span class="comment"># 或你使用的默认分支名称</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">blog</span> <span class="string">source</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">up</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v1</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&quot;16&quot;</span> <span class="comment"># 设置 Node.js 版本</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/cache@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">$&#123;&#123;</span> <span class="string">runner.os</span> <span class="string">&#125;&#125;-node-$&#123;&#123;</span> <span class="string">hashFiles(&#x27;**/package-lock.json&#x27;)</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">restore-keys:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            $&#123;&#123; runner.os &#125;&#125;-node-</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Hexo</span> <span class="string">CLI</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">-g</span> <span class="string">hexo-cli</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Generate</span> <span class="string">static</span> <span class="string">pages</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">personal_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.PERSONAL_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./blog/public</span></span><br><span class="line">          <span class="attr">external_repository:</span> <span class="string">username/username.github.io</span> <span class="comment"># 更改为你的 GitHub Pages 仓库, username 是你的用户名</span></span><br><span class="line">          <span class="attr">publish_branch:</span> <span class="string">main</span> <span class="comment"># GitHub Pages 分支</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>提交本地的 Hexo 项目代码到对应 Github 仓库即可触发 <strong>Github Actions</strong> 工作流实现自动部署，然后访问你的 <strong>username.github.io</strong> ！</li>
+</ol>
+
+  </div>
+</article>
+
+
+    <div class="blog-post-comments">
+        <div id="utterances_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/gvnzhou">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-Hexo-%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text">创建 Hexo 项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-Github-%E4%BB%93%E5%BA%93"><span class="toc-number">2.</span> <span class="toc-text">创建 Github 仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C%EF%BC%88Personal-Access-Token%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">创建个人访问令牌（Personal Access Token）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-Github-Actions-%E8%84%9A%E6%9C%AC"><span class="toc-number">4.</span> <span class="toc-text">创建 Github Actions 脚本</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://hackergavin.com/2024/01/11/hexo-automate-deploy/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&text=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&title=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&is_video=false&description=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages&body=Check out this article: https://hackergavin.com/2024/01/11/hexo-automate-deploy/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&title=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&title=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&title=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&title=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&name=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://hackergavin.com/2024/01/11/hexo-automate-deploy/&t=利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    Gavin Zhou
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/gvnzhou">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+ 
+  <link
+    rel="preload"
+    href="/lib/font-awesome/css/all.min.css"
+    as="style"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+  <noscript
+    ><link
+      rel="stylesheet"
+      href="/lib/font-awesome/css/all.min.css"
+  /></noscript>
+
+
+    <!-- jquery -->
+
+  
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+
+
+
+<!-- clipboard -->
+
+  
+    
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+    <script type="text/javascript">
+      var utterances_repo = 'gvnzhou/blog-comments';
+      var utterances_issue_term = 'pathname';
+      var utterances_label = 'Comment';
+      var utterances_theme = 'github-dark';
+
+      (function(){
+          var script = document.createElement('script');
+
+          script.src = 'https://utteranc.es/client.js';
+          script.setAttribute('repo', utterances_repo);
+          script.setAttribute('issue-term', 'pathname');
+          script.setAttribute('label', utterances_label);
+          script.setAttribute('theme', utterances_theme);
+          script.setAttribute('crossorigin', 'anonymous');
+          script.async = true;
+          (document.getElementById('utterances_thread')).appendChild(script);
+      }());
+  </script>
+
+</body>
+</html>

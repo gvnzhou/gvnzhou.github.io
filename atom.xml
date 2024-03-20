@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Gavin Zhou&#39;s Blog</title>
+  <icon>https://hackergavin.com/icon.png</icon>
+  <subtitle>Engineer | Indie Hacker | Content Creator</subtitle>
+  <link href="https://hackergavin.com/atom.xml" rel="self"/>
+  
+  <link href="https://hackergavin.com/"/>
+  <updated>2024-03-20T14:10:05.988Z</updated>
+  <id>https://hackergavin.com/</id>
+  
+  <author>
+    <name>Gavin Zhou</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何配置使用多个 Github 账号 SSH 密钥</title>
+    <link href="https://hackergavin.com/2024/01/12/two-github-ssh/"/>
+    <id>https://hackergavin.com/2024/01/12/two-github-ssh/</id>
+    <published>2024-01-12T21:23:11.000Z</published>
+    <updated>2024-03-20T14:10:05.988Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上次为了写 blog 新建了一个 GitHub 账号做演示，发现本地配置了 SSH 密钥并不生效，因此研究了下如何配置多个 SSH 密钥连接各自的 Github 账号 。&lt;/p&gt;
+&lt;p&gt;首先打开 ssh 配置文件&lt;/p&gt;
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Github" scheme="https://hackergavin.com/tags/Github/"/>
+    
+    <category term="SSH" scheme="https://hackergavin.com/tags/SSH/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages</title>
+    <link href="https://hackergavin.com/2024/01/11/hexo-automate-deploy/"/>
+    <id>https://hackergavin.com/2024/01/11/hexo-automate-deploy/</id>
+    <published>2024-01-11T21:42:11.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;距离上次写博客已经过去了 6 年， 最近计划重新开始写博客，所以把原来的 Hexo 项目老代码修整了下，搞了下部署。&lt;/p&gt;
+&lt;h2 id=&quot;创建-Hexo-项目&quot;&gt;&lt;a href=&quot;#创建-Hexo-项目&quot; class=&quot;headerlink&quot; title=&quot;创建</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Hexo" scheme="https://hackergavin.com/tags/Hexo/"/>
+    
+    <category term="Github Actions" scheme="https://hackergavin.com/tags/Github-Actions/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>通过flexible解决移动端页面适配问题</title>
+    <link href="https://hackergavin.com/2017/12/04/wap-page-self-adaption/"/>
+    <id>https://hackergavin.com/2017/12/04/wap-page-self-adaption/</id>
+    <published>2017-12-04T20:12:35.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;序言&quot;&gt;&lt;a href=&quot;#序言&quot; class=&quot;headerlink&quot; title=&quot;序言&quot;&gt;&lt;/a&gt;序言&lt;/h1&gt;&lt;p&gt;移动端屏幕尺寸千奇百怪，因此H5页面的适配对每一个前端工程师来说，都是比较头疼的问题。网上有很多关于移动端适配的解决方案，但都不是很全面。flexible是阿里手淘前端团队用于解决移动端页面适配的方案，经过时间和各种项目的检验，是我认为的一个比较成熟的解决方案。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="移动端" scheme="https://hackergavin.com/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"/>
+    
+    
+    <category term="移动端" scheme="https://hackergavin.com/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>koa2.0+webpack3.x实现React热更新</title>
+    <link href="https://hackergavin.com/2017/09/12/koa-webpack-react-hmr/"/>
+    <id>https://hackergavin.com/2017/09/12/koa-webpack-react-hmr/</id>
+    <published>2017-09-12T10:12:35.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="react同构" scheme="https://hackergavin.com/categories/react%E5%90%8C%E6%9E%84/"/>
+    
+    
+    <category term="koa" scheme="https://hackergavin.com/tags/koa/"/>
+    
+    <category term="webpack" scheme="https://hackergavin.com/tags/webpack/"/>
+    
+    <category term="react热更新" scheme="https://hackergavin.com/tags/react%E7%83%AD%E6%9B%B4%E6%96%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>浅析HTTP请求中常见的Content-Type</title>
+    <link href="https://hackergavin.com/2017/02/11/http-post-request-type/"/>
+    <id>https://hackergavin.com/2017/02/11/http-post-request-type/</id>
+    <published>2017-02-11T17:50:58.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;在我们进行前端开发的时候，经常需要折腾form表单或ajax请求数据类型，以便让后端可以顺利解析我们的请求数据。&lt;br&gt;常见&lt;code&gt;Content-Type&lt;/code&gt;的包括&lt;code&gt;multipart/form-data&lt;/code&gt;、&lt;code&gt;application/x-www-form-urlencoded&lt;/code&gt;、&lt;code&gt;application/json&lt;/code&gt;3种类型。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="http" scheme="https://hackergavin.com/tags/http/"/>
+    
+    <category term="post" scheme="https://hackergavin.com/tags/post/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实现自动化部署Hexo到Linux服务器</title>
+    <link href="https://hackergavin.com/2016/11/06/hexodeploy/"/>
+    <id>https://hackergavin.com/2016/11/06/hexodeploy/</id>
+    <published>2016-11-06T22:12:55.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;又懒了好久没写博客…&lt;/p&gt;
+&lt;p&gt;最近忽然发现百度居然不会爬取部署在github上的博客文章，所以准备把原来的博客移到我自己的VPS上。&lt;/p&gt;
+&lt;p&gt;服务器信息：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;国外的VPS - Vultr&lt;/li&gt;
+&lt;li&gt;Linux - CentOS 7&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="Hexo,Linux,Git" scheme="https://hackergavin.com/categories/Hexo-Linux-Git/"/>
+    
+    
+    <category term="Hexo" scheme="https://hackergavin.com/tags/Hexo/"/>
+    
+    <category term="Linux" scheme="https://hackergavin.com/tags/Linux/"/>
+    
+    <category term="Git" scheme="https://hackergavin.com/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Js模拟剩余名额动态减少功能</title>
+    <link href="https://hackergavin.com/2016/09/09/remainingnumber/"/>
+    <id>https://hackergavin.com/2016/09/09/remainingnumber/</id>
+    <published>2016-09-09T19:32:35.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;今天，朋友负责运营的论坛需要制作一个报名剩余人数动态减少的效果，但是并没有服务器提供的当前真实剩余人数。&lt;/p&gt;
+&lt;p&gt;身为程序员的我，只好帮忙实现这个功能了。&lt;/p&gt;
+&lt;p&gt;需求： 假设当前1500人（不知道真实的剩余名额），此后每20分钟会少掉一个名额，到截止那天可能会有剩余名额。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="JavaScript" scheme="https://hackergavin.com/categories/JavaScript/"/>
+    
+    
+    <category term="JavaScript" scheme="https://hackergavin.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>A*寻路算法初探及Js实现寻路过程</title>
+    <link href="https://hackergavin.com/2016/06/25/A-Star-Path-Finding/"/>
+    <id>https://hackergavin.com/2016/06/25/A-Star-Path-Finding/</id>
+    <published>2016-06-25T22:12:55.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;最近为了开发-王牌特工-这款小游戏，学习了A-寻路算法，来实现避开障碍物并抵达目标地点的功能。&quot;&gt;&lt;a href=&quot;#最近为了开发-王牌特工-这款小游戏，学习了A-寻路算法，来实现避开障碍物并抵达目标地点的功能。&quot; class=&quot;headerlink&quot; title=&quot;最近为了开发 王牌特工 这款小游戏，学习了A*寻路算法，来实现避开障碍物并抵达目标地点的功能。&quot;&gt;&lt;/a&gt;&lt;font size=2&gt;最近为了开发 &lt;a href=&quot;http://javion.me/KingsMan/&quot;&gt;王牌特工&lt;/a&gt; 这款小游戏，学习了A*寻路算法，来实现避开障碍物并抵达目标地点的功能。&lt;/h3&gt;&lt;h3 id=&quot;算法具体实现过程可以学习这篇文章-本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼-）。&quot;&gt;&lt;a href=&quot;#算法具体实现过程可以学习这篇文章-本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼-）。&quot; class=&quot;headerlink&quot; title=&quot;算法具体实现过程可以学习这篇文章,本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼- -）。&quot;&gt;&lt;/a&gt;算法具体实现过程可以学习&lt;a href=&quot;http://www.cnblogs.com/technology/archive/2011/05/26/2058842.html&quot;&gt;这篇文章&lt;/a&gt;,本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼- -）。&lt;/font&gt;&lt;/h3&gt;</summary>
+    
+    
+    
+    <category term="JavaScript" scheme="https://hackergavin.com/categories/JavaScript/"/>
+    
+    
+    <category term="JavaScript" scheme="https://hackergavin.com/tags/JavaScript/"/>
+    
+    <category term="Canvas" scheme="https://hackergavin.com/tags/Canvas/"/>
+    
+    <category term="A*寻路算法" scheme="https://hackergavin.com/tags/A-%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ECMAScript6入门笔记2-变量的解构赋值</title>
+    <link href="https://hackergavin.com/2016/05/18/ECMAScript6-note2/"/>
+    <id>https://hackergavin.com/2016/05/18/ECMAScript6-note2/</id>
+    <published>2016-05-18T17:05:22.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;记录一下阅读阮老师的《ECMAScript 6入门》，本篇包含的内容：变量的解构赋值。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="ECMAScript6入门笔记" scheme="https://hackergavin.com/categories/ECMAScript6%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="JavaScript" scheme="https://hackergavin.com/tags/JavaScript/"/>
+    
+    <category term="ECMAScript6" scheme="https://hackergavin.com/tags/ECMAScript6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ECMAScript6入门笔记1-简介、let和const命令</title>
+    <link href="https://hackergavin.com/2016/05/16/ECMAScript6-note1/"/>
+    <id>https://hackergavin.com/2016/05/16/ECMAScript6-note1/</id>
+    <published>2016-05-16T23:10:35.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;记录一下阅读阮老师的《ECMAScript 6入门》，本篇包含前二章的内容：简介、&lt;code&gt;let&lt;/code&gt;和&lt;code&gt;const&lt;/code&gt;命令。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="ECMAScript6入门笔记" scheme="https://hackergavin.com/categories/ECMAScript6%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="JavaScript" scheme="https://hackergavin.com/tags/JavaScript/"/>
+    
+    <category term="ECMAScript6" scheme="https://hackergavin.com/tags/ECMAScript6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实现类似BootStrap的响应式12栏网格布局</title>
+    <link href="https://hackergavin.com/2016/04/07/gridlayouts/"/>
+    <id>https://hackergavin.com/2016/04/07/gridlayouts/</id>
+    <published>2016-04-07T18:32:11.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。&quot;&gt;&lt;a href=&quot;#今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。&quot; class=&quot;headerlink&quot; title=&quot; 今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。&quot;&gt;&lt;/a&gt;&lt;font size=2&gt; 今天研究了如何实现网格布局，主要学习了&lt;a href=&quot;http://j4n.co/blog/Creating-your-own-css-grid-system&quot;&gt;这篇文章&lt;/a&gt;中的内容。特写此篇博客作为总结。&lt;/font&gt;&lt;/h3&gt;</summary>
+    
+    
+    
+    <category term="CSS3" scheme="https://hackergavin.com/categories/CSS3/"/>
+    
+    
+    <category term="CSS3" scheme="https://hackergavin.com/tags/CSS3/"/>
+    
+    <category term="响应式" scheme="https://hackergavin.com/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/"/>
+    
+    <category term="网格布局" scheme="https://hackergavin.com/tags/%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于HTML语义化</title>
+    <link href="https://hackergavin.com/2016/03/20/semanteme/"/>
+    <id>https://hackergavin.com/2016/03/20/semanteme/</id>
+    <published>2016-03-20T20:12:35.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;什么是HTML语义化？&quot;&gt;&lt;a href=&quot;#什么是HTML语义化？&quot; class=&quot;headerlink&quot; title=&quot;什么是HTML语义化？&quot;&gt;&lt;/a&gt;什么是HTML语义化？&lt;/h2&gt;&lt;p&gt;&lt;font size=&quot;3&quot;&gt;通俗讲，就是将内容放置在最合适的HTML标签中，使网页具有一定的层次结构，可以让人和机器读懂内容是什么。&lt;/font&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="HTML5" scheme="https://hackergavin.com/categories/HTML5/"/>
+    
+    
+    <category term="HTML5" scheme="https://hackergavin.com/tags/HTML5/"/>
+    
+    <category term="语义化" scheme="https://hackergavin.com/tags/%E8%AF%AD%E4%B9%89%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实习知识点总结(6)</title>
+    <link href="https://hackergavin.com/2016/03/11/Knowledge-point-summary-6/"/>
+    <id>https://hackergavin.com/2016/03/11/Knowledge-point-summary-6/</id>
+    <published>2016-03-11T19:32:35.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Js中的三个字符串方法&quot;&gt;&lt;a href=&quot;#Js中的三个字符串方法&quot; class=&quot;headerlink&quot; title=&quot;Js中的三个字符串方法&quot;&gt;&lt;/a&gt;Js中的三个字符串方法&lt;/h2&gt;</summary>
+    
+    
+    
+    <category term="实习知识点总结" scheme="https://hackergavin.com/categories/%E5%AE%9E%E4%B9%A0%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
+    
+    
+    <category term="Javascript" scheme="https://hackergavin.com/tags/Javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实习知识点总结(5)</title>
+    <link href="https://hackergavin.com/2016/03/04/Knowledge-point-summary-5/"/>
+    <id>https://hackergavin.com/2016/03/04/Knowledge-point-summary-5/</id>
+    <published>2016-03-04T19:32:35.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;移动web开发-viewport&quot;&gt;&lt;a href=&quot;#移动web开发-viewport&quot; class=&quot;headerlink&quot; title=&quot;移动web开发-viewport&quot;&gt;&lt;/a&gt;移动web开发-viewport&lt;/h2&gt;&lt;p&gt;对于移动端的网页，一般head标签里都需要添加一行：&lt;/p&gt;
+&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;meta&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;viewport&amp;quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;content&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&amp;quot;width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0 user-scalable=no&amp;quot;&lt;/span&gt; /&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="实习知识点总结" scheme="https://hackergavin.com/categories/%E5%AE%9E%E4%B9%A0%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
+    
+    
+    <category term="jQuery" scheme="https://hackergavin.com/tags/jQuery/"/>
+    
+    <category term="移动web开发" scheme="https://hackergavin.com/tags/%E7%A7%BB%E5%8A%A8web%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实习知识点总结(4)</title>
+    <link href="https://hackergavin.com/2016/02/26/Knowledge-point-summary-4/"/>
+    <id>https://hackergavin.com/2016/02/26/Knowledge-point-summary-4/</id>
+    <published>2016-02-26T19:32:35.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;JS实现图片延迟加载&quot;&gt;&lt;a href=&quot;#JS实现图片延迟加载&quot; class=&quot;headerlink&quot; title=&quot;JS实现图片延迟加载&quot;&gt;&lt;/a&gt;JS实现图片延迟加载&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;需求：&lt;br&gt;根据读者阅读顺序逐步加载漫画分镜，达到节省用户流量，提升用户体验和减少服务器处理请求的目的。&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="实习知识点总结" scheme="https://hackergavin.com/categories/%E5%AE%9E%E4%B9%A0%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
+    
+    
+    <category term="Javascript" scheme="https://hackergavin.com/tags/Javascript/"/>
+    
+    <category term="Canvas" scheme="https://hackergavin.com/tags/Canvas/"/>
+    
+    <category term="移动web开发" scheme="https://hackergavin.com/tags/%E7%A7%BB%E5%8A%A8web%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实习知识点总结(3)</title>
+    <link href="https://hackergavin.com/2016/01/29/Knowledge-point-summary-3/"/>
+    <id>https://hackergavin.com/2016/01/29/Knowledge-point-summary-3/</id>
+    <published>2016-01-29T19:32:35.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Js实现鼠标拖动效果&quot;&gt;&lt;a href=&quot;#Js实现鼠标拖动效果&quot; class=&quot;headerlink&quot; title=&quot;Js实现鼠标拖动效果&quot;&gt;&lt;/a&gt;Js实现鼠标拖动效果&lt;/h2&gt;&lt;p&gt;拖动的对象必须使用position:absolute;绝对定位，使其脱离文档流，对对象准确定位。&lt;/p&gt;
+&lt;h2 id=&quot;一、实现思路：&quot;&gt;&lt;a href=&quot;#一、实现思路：&quot; class=&quot;headerlink&quot; title=&quot;一、实现思路：&quot;&gt;&lt;/a&gt;一、实现思路：&lt;/h2&gt;&lt;p&gt;获取拖动对象的初始位置坐标（oX，oY），监听鼠标按下时记录鼠标初始位置坐标（sX,sY）和鼠标移动时的坐标（mX，mY），可得对象在移动中的横坐标（oX + mX -sX），纵坐标（oY + mY-sY）。然后只需在监听鼠标移动事件中，更改当前对象的left和top值为移动中的坐标即可。 &lt;/p&gt;</summary>
+    
+    
+    
+    <category term="实习知识点总结" scheme="https://hackergavin.com/categories/%E5%AE%9E%E4%B9%A0%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
+    
+    
+    <category term="Javascript" scheme="https://hackergavin.com/tags/Javascript/"/>
+    
+    <category term="Canvas" scheme="https://hackergavin.com/tags/Canvas/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实习知识点总结(2)</title>
+    <link href="https://hackergavin.com/2016/01/22/Knowledge-point-summary-2/"/>
+    <id>https://hackergavin.com/2016/01/22/Knowledge-point-summary-2/</id>
+    <published>2016-01-22T19:32:35.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Css中display-inline-block&quot;&gt;&lt;a href=&quot;#Css中display-inline-block&quot; class=&quot;headerlink&quot; title=&quot;Css中display:inline-block&quot;&gt;&lt;/a&gt;Css中display:inline-block&lt;/h2&gt;&lt;p&gt;会将对象呈递为内联对象，但是对象的内容作为块对象呈递。也就是说，可以给该内联对象设置宽度和高度，和周围的元素保持在一行，允许空格。&lt;br&gt;兼容性：&lt;br&gt;主流浏览器均支持inline-block。&lt;br&gt;IE6、IE7不识别inline-block，可以使用zoom:1触发layout，实现inline-block。（“Layout”是一个 IE&amp;#x2F;Win的私有概念，它决定了一个元素如何显示以及约束其包含的内容、如何与其他元素交互和建立联系、如何响应和传递应用程序事件&amp;#x2F;用户事件等。）&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="实习知识点总结" scheme="https://hackergavin.com/categories/%E5%AE%9E%E4%B9%A0%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
+    
+    
+    <category term="CSS" scheme="https://hackergavin.com/tags/CSS/"/>
+    
+    <category term="Javascript" scheme="https://hackergavin.com/tags/Javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实习知识点总结(1)</title>
+    <link href="https://hackergavin.com/2016/01/15/Knowledge-point-summary-1/"/>
+    <id>https://hackergavin.com/2016/01/15/Knowledge-point-summary-1/</id>
+    <published>2016-01-15T19:32:35.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文主要是对在公司实习第一周对需要完成项目所要的一些知识点进行收集与总结，主要内容包括一些canvas的基础知识和在做项目过程中遇见的相关javascript问题的解决方案。&lt;br&gt;主要目标是通过学习深入canvas和javascript，完成一个较复杂在线web图片编辑器。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="实习知识点总结" scheme="https://hackergavin.com/categories/%E5%AE%9E%E4%B9%A0%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
+    
+    
+    <category term="Javascript" scheme="https://hackergavin.com/tags/Javascript/"/>
+    
+    <category term="Canvas" scheme="https://hackergavin.com/tags/Canvas/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实习知识点总结(1)</title>
+    <link href="https://hackergavin.com/2016/01/15/promise/"/>
+    <id>https://hackergavin.com/2016/01/15/promise/</id>
+    <published>2016-01-15T19:32:35.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文主要是对在公司实习第一周对需要完成项目所要的一些知识点进行收集与总结，主要内容包括一些canvas的基础知识和在做项目过程中遇见的相关javascript问题的解决方案。&lt;br&gt;主要目标是通过学习深入canvas和javascript，完成一个较复杂在线web图片编辑器。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="实习知识点总结" scheme="https://hackergavin.com/categories/%E5%AE%9E%E4%B9%A0%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
+    
+    
+    <category term="Javascript" scheme="https://hackergavin.com/tags/Javascript/"/>
+    
+    <category term="Canvas" scheme="https://hackergavin.com/tags/Canvas/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>12月29日-web前端面试总结心得</title>
+    <link href="https://hackergavin.com/2015/12/29/interview-12-29/"/>
+    <id>https://hackergavin.com/2015/12/29/interview-12-29/</id>
+    <published>2015-12-29T19:32:35.000Z</published>
+    <updated>2024-03-20T14:10:05.980Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;来上海第一场面试，写写一些面试的问题及自己的解决方法。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="杂谈" scheme="https://hackergavin.com/categories/%E6%9D%82%E8%B0%88/"/>
+    
+    
+    <category term="HTML" scheme="https://hackergavin.com/tags/HTML/"/>
+    
+    <category term="CSS" scheme="https://hackergavin.com/tags/CSS/"/>
+    
+    <category term="jQuery" scheme="https://hackergavin.com/tags/jQuery/"/>
+    
+    <category term="Javascript" scheme="https://hackergavin.com/tags/Javascript/"/>
+    
+    <category term="Bootstrap" scheme="https://hackergavin.com/tags/Bootstrap/"/>
+    
+  </entry>
+  
+</feed>

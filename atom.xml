@@ -6,7 +6,7 @@
   <link href="https://hackergavin.com/atom.xml" rel="self"/>
   
   <link href="https://hackergavin.com/"/>
-  <updated>2024-03-20T14:17:07.010Z</updated>
+  <updated>2024-03-20T14:57:56.217Z</updated>
   <id>https://hackergavin.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://hackergavin.com/2024/01/12/two-github-ssh/"/>
     <id>https://hackergavin.com/2024/01/12/two-github-ssh/</id>
     <published>2024-01-12T21:23:11.000Z</published>
-    <updated>2024-03-20T14:17:07.010Z</updated>
+    <updated>2024-03-20T14:57:56.217Z</updated>
     
     
       
@@ -48,7 +48,7 @@
     <link href="https://hackergavin.com/2024/01/11/hexo-automate-deploy/"/>
     <id>https://hackergavin.com/2024/01/11/hexo-automate-deploy/</id>
     <published>2024-01-11T21:42:11.000Z</published>
-    <updated>2024-03-20T14:17:07.006Z</updated>
+    <updated>2024-03-20T14:57:56.213Z</updated>
     
     
       
@@ -74,7 +74,7 @@
     <link href="https://hackergavin.com/2017/12/04/wap-page-self-adaption/"/>
     <id>https://hackergavin.com/2017/12/04/wap-page-self-adaption/</id>
     <published>2017-12-04T20:12:35.000Z</published>
-    <updated>2024-03-20T14:17:07.006Z</updated>
+    <updated>2024-03-20T14:57:56.213Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;序言&quot;&gt;&lt;a href=&quot;#序言&quot; class=&quot;headerlink&quot; title=&quot;序言&quot;&gt;&lt;/a&gt;序言&lt;/h1&gt;&lt;p&gt;移动端屏幕尺寸千奇百怪，因此H5页面的适配对每一个前端工程师来说，都是比较头疼的问题。网上有很多关于移动端适配的解决方案，但都不是很全面。flexible是阿里手淘前端团队用于解决移动端页面适配的方案，经过时间和各种项目的检验，是我认为的一个比较成熟的解决方案。&lt;/p&gt;</summary>
@@ -93,7 +93,7 @@
     <link href="https://hackergavin.com/2017/09/12/koa-webpack-react-hmr/"/>
     <id>https://hackergavin.com/2017/09/12/koa-webpack-react-hmr/</id>
     <published>2017-09-12T10:12:35.000Z</published>
-    <updated>2024-03-20T14:17:07.006Z</updated>
+    <updated>2024-03-20T14:57:56.213Z</updated>
     
     
       
@@ -122,7 +122,7 @@
     <link href="https://hackergavin.com/2017/02/11/http-post-request-type/"/>
     <id>https://hackergavin.com/2017/02/11/http-post-request-type/</id>
     <published>2017-02-11T17:50:58.000Z</published>
-    <updated>2024-03-20T14:17:07.006Z</updated>
+    <updated>2024-03-20T14:57:56.213Z</updated>
     
     
     <summary type="html">&lt;p&gt;在我们进行前端开发的时候，经常需要折腾form表单或ajax请求数据类型，以便让后端可以顺利解析我们的请求数据。&lt;br&gt;常见&lt;code&gt;Content-Type&lt;/code&gt;的包括&lt;code&gt;multipart/form-data&lt;/code&gt;、&lt;code&gt;application/x-www-form-urlencoded&lt;/code&gt;、&lt;code&gt;application/json&lt;/code&gt;3种类型。&lt;/p&gt;</summary>
@@ -141,7 +141,7 @@
     <link href="https://hackergavin.com/2016/11/06/hexodeploy/"/>
     <id>https://hackergavin.com/2016/11/06/hexodeploy/</id>
     <published>2016-11-06T22:12:55.000Z</published>
-    <updated>2024-03-20T14:17:07.006Z</updated>
+    <updated>2024-03-20T14:57:56.209Z</updated>
     
     
     <summary type="html">&lt;p&gt;又懒了好久没写博客…&lt;/p&gt;
@@ -170,7 +170,7 @@
     <link href="https://hackergavin.com/2016/09/09/remainingnumber/"/>
     <id>https://hackergavin.com/2016/09/09/remainingnumber/</id>
     <published>2016-09-09T19:32:35.000Z</published>
-    <updated>2024-03-20T14:17:07.006Z</updated>
+    <updated>2024-03-20T14:57:56.209Z</updated>
     
     
     <summary type="html">&lt;p&gt;今天，朋友负责运营的论坛需要制作一个报名剩余人数动态减少的效果，但是并没有服务器提供的当前真实剩余人数。&lt;/p&gt;
@@ -191,7 +191,7 @@
     <link href="https://hackergavin.com/2016/06/25/A-Star-Path-Finding/"/>
     <id>https://hackergavin.com/2016/06/25/A-Star-Path-Finding/</id>
     <published>2016-06-25T22:12:55.000Z</published>
-    <updated>2024-03-20T14:17:07.006Z</updated>
+    <updated>2024-03-20T14:57:56.209Z</updated>
     
     
     <summary type="html">&lt;h3 id=&quot;最近为了开发-王牌特工-这款小游戏，学习了A-寻路算法，来实现避开障碍物并抵达目标地点的功能。&quot;&gt;&lt;a href=&quot;#最近为了开发-王牌特工-这款小游戏，学习了A-寻路算法，来实现避开障碍物并抵达目标地点的功能。&quot; class=&quot;headerlink&quot; title=&quot;最近为了开发 王牌特工 这款小游戏，学习了A*寻路算法，来实现避开障碍物并抵达目标地点的功能。&quot;&gt;&lt;/a&gt;&lt;font size=2&gt;最近为了开发 &lt;a href=&quot;http://javion.me/KingsMan/&quot;&gt;王牌特工&lt;/a&gt; 这款小游戏，学习了A*寻路算法，来实现避开障碍物并抵达目标地点的功能。&lt;/h3&gt;&lt;h3 id=&quot;算法具体实现过程可以学习这篇文章-本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼-）。&quot;&gt;&lt;a href=&quot;#算法具体实现过程可以学习这篇文章-本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼-）。&quot; class=&quot;headerlink&quot; title=&quot;算法具体实现过程可以学习这篇文章,本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼- -）。&quot;&gt;&lt;/a&gt;算法具体实现过程可以学习&lt;a href=&quot;http://www.cnblogs.com/technology/archive/2011/05/26/2058842.html&quot;&gt;这篇文章&lt;/a&gt;,本篇主要记录我使用Js实现寻路算法的过程（算法学习真是头疼- -）。&lt;/font&gt;&lt;/h3&gt;</summary>
@@ -214,7 +214,7 @@
     <link href="https://hackergavin.com/2016/05/18/ECMAScript6-note2/"/>
     <id>https://hackergavin.com/2016/05/18/ECMAScript6-note2/</id>
     <published>2016-05-18T17:05:22.000Z</published>
-    <updated>2024-03-20T14:17:07.006Z</updated>
+    <updated>2024-03-20T14:57:56.209Z</updated>
     
     
     <summary type="html">&lt;p&gt;记录一下阅读阮老师的《ECMAScript 6入门》，本篇包含的内容：变量的解构赋值。&lt;/p&gt;</summary>
@@ -235,7 +235,7 @@
     <link href="https://hackergavin.com/2016/05/16/ECMAScript6-note1/"/>
     <id>https://hackergavin.com/2016/05/16/ECMAScript6-note1/</id>
     <published>2016-05-16T23:10:35.000Z</published>
-    <updated>2024-03-20T14:17:07.006Z</updated>
+    <updated>2024-03-20T14:57:56.209Z</updated>
     
     
     <summary type="html">&lt;p&gt;记录一下阅读阮老师的《ECMAScript 6入门》，本篇包含前二章的内容：简介、&lt;code&gt;let&lt;/code&gt;和&lt;code&gt;const&lt;/code&gt;命令。&lt;/p&gt;</summary>
@@ -256,7 +256,7 @@
     <link href="https://hackergavin.com/2016/04/07/gridlayouts/"/>
     <id>https://hackergavin.com/2016/04/07/gridlayouts/</id>
     <published>2016-04-07T18:32:11.000Z</published>
-    <updated>2024-03-20T14:17:07.002Z</updated>
+    <updated>2024-03-20T14:57:56.209Z</updated>
     
     
     <summary type="html">&lt;h3 id=&quot;今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。&quot;&gt;&lt;a href=&quot;#今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。&quot; class=&quot;headerlink&quot; title=&quot; 今天研究了如何实现网格布局，主要学习了这篇文章中的内容。特写此篇博客作为总结。&quot;&gt;&lt;/a&gt;&lt;font size=2&gt; 今天研究了如何实现网格布局，主要学习了&lt;a href=&quot;http://j4n.co/blog/Creating-your-own-css-grid-system&quot;&gt;这篇文章&lt;/a&gt;中的内容。特写此篇博客作为总结。&lt;/font&gt;&lt;/h3&gt;</summary>
@@ -279,7 +279,7 @@
     <link href="https://hackergavin.com/2016/03/20/semanteme/"/>
     <id>https://hackergavin.com/2016/03/20/semanteme/</id>
     <published>2016-03-20T20:12:35.000Z</published>
-    <updated>2024-03-20T14:17:07.002Z</updated>
+    <updated>2024-03-20T14:57:56.209Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;什么是HTML语义化？&quot;&gt;&lt;a href=&quot;#什么是HTML语义化？&quot; class=&quot;headerlink&quot; title=&quot;什么是HTML语义化？&quot;&gt;&lt;/a&gt;什么是HTML语义化？&lt;/h2&gt;&lt;p&gt;&lt;font size=&quot;3&quot;&gt;通俗讲，就是将内容放置在最合适的HTML标签中，使网页具有一定的层次结构，可以让人和机器读懂内容是什么。&lt;/font&gt;&lt;/p&gt;</summary>
@@ -300,7 +300,7 @@
     <link href="https://hackergavin.com/2016/03/11/Knowledge-point-summary-6/"/>
     <id>https://hackergavin.com/2016/03/11/Knowledge-point-summary-6/</id>
     <published>2016-03-11T19:32:35.000Z</published>
-    <updated>2024-03-20T14:17:07.002Z</updated>
+    <updated>2024-03-20T14:57:56.209Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;Js中的三个字符串方法&quot;&gt;&lt;a href=&quot;#Js中的三个字符串方法&quot; class=&quot;headerlink&quot; title=&quot;Js中的三个字符串方法&quot;&gt;&lt;/a&gt;Js中的三个字符串方法&lt;/h2&gt;</summary>
@@ -319,7 +319,7 @@
     <link href="https://hackergavin.com/2016/03/04/Knowledge-point-summary-5/"/>
     <id>https://hackergavin.com/2016/03/04/Knowledge-point-summary-5/</id>
     <published>2016-03-04T19:32:35.000Z</published>
-    <updated>2024-03-20T14:17:07.002Z</updated>
+    <updated>2024-03-20T14:57:56.209Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;移动web开发-viewport&quot;&gt;&lt;a href=&quot;#移动web开发-viewport&quot; class=&quot;headerlink&quot; title=&quot;移动web开发-viewport&quot;&gt;&lt;/a&gt;移动web开发-viewport&lt;/h2&gt;&lt;p&gt;对于移动端的网页，一般head标签里都需要添加一行：&lt;/p&gt;
@@ -341,7 +341,7 @@
     <link href="https://hackergavin.com/2016/02/26/Knowledge-point-summary-4/"/>
     <id>https://hackergavin.com/2016/02/26/Knowledge-point-summary-4/</id>
     <published>2016-02-26T19:32:35.000Z</published>
-    <updated>2024-03-20T14:17:07.002Z</updated>
+    <updated>2024-03-20T14:57:56.209Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;JS实现图片延迟加载&quot;&gt;&lt;a href=&quot;#JS实现图片延迟加载&quot; class=&quot;headerlink&quot; title=&quot;JS实现图片延迟加载&quot;&gt;&lt;/a&gt;JS实现图片延迟加载&lt;/h2&gt;&lt;ul&gt;
@@ -366,7 +366,7 @@
     <link href="https://hackergavin.com/2016/01/29/Knowledge-point-summary-3/"/>
     <id>https://hackergavin.com/2016/01/29/Knowledge-point-summary-3/</id>
     <published>2016-01-29T19:32:35.000Z</published>
-    <updated>2024-03-20T14:17:07.002Z</updated>
+    <updated>2024-03-20T14:57:56.209Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;Js实现鼠标拖动效果&quot;&gt;&lt;a href=&quot;#Js实现鼠标拖动效果&quot; class=&quot;headerlink&quot; title=&quot;Js实现鼠标拖动效果&quot;&gt;&lt;/a&gt;Js实现鼠标拖动效果&lt;/h2&gt;&lt;p&gt;拖动的对象必须使用position:absolute;绝对定位，使其脱离文档流，对对象准确定位。&lt;/p&gt;
@@ -388,7 +388,7 @@
     <link href="https://hackergavin.com/2016/01/22/Knowledge-point-summary-2/"/>
     <id>https://hackergavin.com/2016/01/22/Knowledge-point-summary-2/</id>
     <published>2016-01-22T19:32:35.000Z</published>
-    <updated>2024-03-20T14:17:07.002Z</updated>
+    <updated>2024-03-20T14:57:56.209Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;Css中display-inline-block&quot;&gt;&lt;a href=&quot;#Css中display-inline-block&quot; class=&quot;headerlink&quot; title=&quot;Css中display:inline-block&quot;&gt;&lt;/a&gt;Css中display:inline-block&lt;/h2&gt;&lt;p&gt;会将对象呈递为内联对象，但是对象的内容作为块对象呈递。也就是说，可以给该内联对象设置宽度和高度，和周围的元素保持在一行，允许空格。&lt;br&gt;兼容性：&lt;br&gt;主流浏览器均支持inline-block。&lt;br&gt;IE6、IE7不识别inline-block，可以使用zoom:1触发layout，实现inline-block。（“Layout”是一个 IE&amp;#x2F;Win的私有概念，它决定了一个元素如何显示以及约束其包含的内容、如何与其他元素交互和建立联系、如何响应和传递应用程序事件&amp;#x2F;用户事件等。）&lt;/p&gt;</summary>
@@ -409,7 +409,7 @@
     <link href="https://hackergavin.com/2016/01/15/Knowledge-point-summary-1/"/>
     <id>https://hackergavin.com/2016/01/15/Knowledge-point-summary-1/</id>
     <published>2016-01-15T19:32:35.000Z</published>
-    <updated>2024-03-20T14:17:07.002Z</updated>
+    <updated>2024-03-20T14:57:56.209Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文主要是对在公司实习第一周对需要完成项目所要的一些知识点进行收集与总结，主要内容包括一些canvas的基础知识和在做项目过程中遇见的相关javascript问题的解决方案。&lt;br&gt;主要目标是通过学习深入canvas和javascript，完成一个较复杂在线web图片编辑器。&lt;/p&gt;</summary>
@@ -430,7 +430,7 @@
     <link href="https://hackergavin.com/2016/01/15/promise/"/>
     <id>https://hackergavin.com/2016/01/15/promise/</id>
     <published>2016-01-15T19:32:35.000Z</published>
-    <updated>2024-03-20T14:17:07.002Z</updated>
+    <updated>2024-03-20T14:57:56.209Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文主要是对在公司实习第一周对需要完成项目所要的一些知识点进行收集与总结，主要内容包括一些canvas的基础知识和在做项目过程中遇见的相关javascript问题的解决方案。&lt;br&gt;主要目标是通过学习深入canvas和javascript，完成一个较复杂在线web图片编辑器。&lt;/p&gt;</summary>
@@ -451,7 +451,7 @@
     <link href="https://hackergavin.com/2015/12/29/interview-12-29/"/>
     <id>https://hackergavin.com/2015/12/29/interview-12-29/</id>
     <published>2015-12-29T19:32:35.000Z</published>
-    <updated>2024-03-20T14:17:07.002Z</updated>
+    <updated>2024-03-20T14:57:56.209Z</updated>
     
     
     <summary type="html">&lt;p&gt;来上海第一场面试，写写一些面试的问题及自己的解决方法。&lt;/p&gt;</summary>

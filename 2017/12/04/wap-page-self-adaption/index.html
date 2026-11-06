@@ -189,7 +189,7 @@
 <p>在JavaScript中，可以通过<code>window.devicePixelRatio</code>获取到当前设备的dpr。<br>在CSS中，可以通过<code>-webkit-device-pixel-ratio</code>，<code>-webkit-min-device-pixel-ratio</code>和 <code>-webkit-max-device-pixel-ratio</code>进行媒体查询，对不同dpr的设备，做一些样式适配(这里只针对webkit内核的浏览器和webview)。</p>
 <h2 id="dpr对页面显示效果的影响"><a href="#dpr对页面显示效果的影响" class="headerlink" title="dpr对页面显示效果的影响"></a>dpr对页面显示效果的影响</h2><p>对比Retina屏（dpr &#x3D; 2）和普通屏（dpr &#x3D; 1），css像素所呈现的大小(物理尺寸)是一致的，不同的是1个css像素所对应的物理像素个数是不一致的。</p>
 <p>在retina屏幕下，1个css像素对应1个物理像素(1:1)。 在普通屏幕下，1个css像素对应4个物理像素(1:4)。如图：</p>
-<p><img src="http://cc.cocimg.com/api/uploads/20150714/1436861865138289.jpg"></p>
+<p><img src="cocos-page.jpg"></p>
 <p>理论上，1个css像素对应于1个物理像素，才能得到完美清晰的展示。</p>
 <p>因此对于dpr &#x3D; 2的屏幕，需要将屏幕缩放到原来的1&#x2F;2才能达到最完美的显示效果，dpr &#x3D; 3，则需要缩放为原来的1&#x2F;3。</p>
 <h2 id="常见手机的dpr"><a href="#常见手机的dpr" class="headerlink" title="常见手机的dpr"></a>常见手机的dpr</h2><p>iPhone 4以上都是用的是Retina屏。<br>其中4, 4s, 5, 5s, 6, 6s的dpr都是2，6+和6s+的dpr是3。</p>
@@ -205,11 +205,11 @@
 <p>这里涉及到了一个东西叫<code>viewport</code>。</p>
 <p>一般移动设备的浏览器都默认设置了一个<code>viewport</code>元标签，定义一个虚拟的<code>layout viewport</code>（布局视口），用于解决早期的页面在手机上显示的问题。</p>
 <p>移动设备的浏览器就是把页面放在一个虚拟的“窗口”（viewport）中，窗口可大于或小于手机的可视区域，一般手机默认viewport大于可视区域。这样不会破坏没有针对手机浏览器优化的网页的布局，用户可以通过平移和缩放来看网页的其他部分。如图：</p>
-<p><img src="http://ossweb-img.qq.com/upload/webplat/info/tgideas/201509/1441639130_1436653066_23964_imageAddr.jpg"></p>
+<p><img src="tencent-event-page.jpg"></p>
 <p>一般移动设备浏览器的<code>viewport</code>的<code>width</code>默认为980px，所以我们只能看见部分区域的页面，需要滚动页面才能看见其他部分。所以我们需要将<code>width = device-width</code>，将可视窗口（viewport）的宽度设为当前设备的宽度，然后将<code>initial-scale = 1</code>，保持原来的比例。就能把一个页面适应的移动设备上。</p>
 <p>一个常见的<code>viewport</code>类型的<code>meta</code>标签：</p>
 <p><code>&lt;meta name=”viewport” content=”width=device-width, initial-scale=1, maximum-scale=1″&gt;</code></p>
-<p><img src="http://ossweb-img.qq.com/upload/webplat/info/tgideas/201509/1441639194_1436653066_26312_imageAddr.jpg"></p>
+<p><img src="tencent-scaled-page.jpg"></p>
 <h3 id="根据dpr设置html的font-size"><a href="#根据dpr设置html的font-size" class="headerlink" title="根据dpr设置html的font-size"></a>根据dpr设置html的font-size</h3><p>此方案默认以640px的设计稿为标准。因此dpr &#x3D; 2时，<code>html</code>的<code>font-size</code>为100px。依此类推。</p>
 <h1 id="如何使用flexible"><a href="#如何使用flexible" class="headerlink" title="如何使用flexible"></a>如何使用flexible</h1><p>在页面<code>head</code>标签里引入第一节中的js代码。页面渲染之前会执行该代码，给页面设置好缩放比例和html的font-size。<br>然后我们根据设计稿（通常以640px为基准，1rem &#x3D; 100px），通过rem设置相应元素的宽高即可。</p>
 <hr>

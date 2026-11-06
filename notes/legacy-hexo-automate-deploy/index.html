@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="距离上次写博客已经过去了 6 年， 最近计划重新开始写博客，所以把原来的 Hexo 项目老代码修整了下，搞了下部署。创建 Hexo 项目因为原来我的 Hexo 项目是大概 6 年前的版本了，在部署的时候遇到 Hexo 生成不了 html 的问题。所以选择重新安装最新版本的 Hexo，然后直接迁移 s"><meta name="theme-color" content="#0b1012"><title>利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages · Gavin Zhou</title><link rel="icon" href="/mark.svg?v=gz-ac33957" type="image/svg+xml"><link rel="stylesheet" href="/_astro/content.BEY1TnSF.css"></head> <body> <a class="skip" href="#main">跳到正文</a> <header class="header shell"> <a class="brand" href="/" aria-label="Gavin Zhou，首页"> <img src="/mark.svg?v=gz-ac33957" alt="" width="34" height="34"> <span>Gavin Zhou</span> </a> <nav aria-label="主要导航"> <a href="/#notes" data-nav="notes">造物手记</a> <a href="/#projects" data-nav="projects">项目</a> <a href="/#about" data-nav="about">关于</a> </nav> </header> <main id="main" class="shell">  <article class="entry" aria-labelledby="entry-title"> <a class="entry-back" href="/#notes"><span aria-hidden="true">←</span> 返回造物手记</a> <header class="entry-header"> <p class="index">01 / WRITING</p> <h1 id="entry-title">利用 GitHub Actions 实现自动化部署  Hexo 到 Github Pages</h1> <div class="entry-meta"> <time datetime="2024-01-11">2024-01-11</time> <span class="badge">项目复盘</span> </div> </header> <div class="entry-copy"><article><p>距离上次写博客已经过去了 6 年， 最近计划重新开始写博客，所以把原来的 Hexo 项目老代码修整了下，搞了下部署。</p><h2>创建 Hexo 项目</h2><p>因为原来我的 Hexo 项目是大概 6 年前的版本了，在部署的时候遇到 Hexo 生成不了 html 的问题。所以选择重新<a href="https://hexo.io/docs/">安装最新版本的 Hexo</a>，然后直接迁移 source 文件夹即可。</p><h2>创建 Github 仓库</h2><p>需要在 GitHub 建好两个仓库，为什么是两个？一个仓库也是可以的，直接参考<a href="https://hexo.io/zh-cn/docs/github-pages">Hexo 官方部署方案</a>，流程简单很多。</p><p>我这里使用两个仓库目的主要是希望博客源码仓库私有化和 Github Pages 仓库分开管理，单纯个人喜好。所以后续部署会跟上面 Hexo 官方文档上部署方法有点不同。</p><ul><li><strong>Hexo 项目仓库</strong></li><li><strong>username.github.io 仓库</strong><ul><li>username 为 github 的账号名字。其他命名也是可以的，只是访问路径会变成 username.github.io/&lt;仓库名&gt;</li></ul></li></ul><h2>创建个人访问令牌（Personal Access Token）</h2><p>因为我们需要在 <strong>Hexo 项目仓库</strong> 执行 <strong>Github Actions</strong> 向 <strong>username.github.io 仓库</strong>推送代码，由于 Github 权限限制，我们需要在 GitHub 账户中创建一个具有足够权限的<strong>个人访问令牌（Personal Access Token，简称 PAT）</strong>。这个令牌需要有足够的权限来修改仓库。</p><ol><li><p>点击右上角头像 -&gt; 打开 <strong>Settings</strong> -&gt; 左边栏滚到最后找到 <strong>Develop Setting</strong> 打开，如图</p><p><img src="https://hackergavin.com/2024/01/11/hexo-automate-deploy/developer-setting.png" alt="Developer Setting"></p></li><li><p>找到 <strong>Personal Access Token</strong> 点击 <strong>Tokens（classic）</strong> -&gt; 选择 <strong>Generate new token (classic)</strong> ，如图</p><p><img src="https://hackergavin.com/2024/01/11/hexo-automate-deploy/personal-access-tokens.png" alt="personal-access-tokens"></p></li><li><p>给令牌起个名字并且勾选红框中的 <strong>repo</strong> 的访问权限，然后点击生成 <strong>token</strong>（<strong>注意：</strong> 确保复制并安全地保存这个令牌。GitHub 不会再次显示这个令牌，所以这是你唯一的机会复制它），如图</p><p><img src="https://hackergavin.com/2024/01/11/hexo-automate-deploy/new-personal-access-token.png" alt="new-personal-access-token"></p><p><img src="https://hackergavin.com/2024/01/11/hexo-automate-deploy/copy-token.png" alt="copy-token"></p></li><li><p>将生成的 <strong>PAT</strong> 添加到你的博客源代码仓库的 <strong>Secrets</strong>，名字填入 <strong>PERSONAL_TOKEN</strong> 后面会用到这个变量名，如图</p><p><img src="https://hackergavin.com/2024/01/11/hexo-automate-deploy/new-secret.png" alt="new-secret"></p></li></ol><h2>创建 Github Actions 脚本</h2><ol><li><p>在你的 Hexo 项目根目录下创建一个 <strong>.github/workflows</strong> 文件夹（如果尚未存在）。</p></li><li><p>在该文件夹内创建一个新的 <strong>YAML</strong> 文件（例如 hexo-deploy.yml），用于定义 <strong>GitHub Actions</strong> 工作流。</p></li><li><p>复制如下配置到 <strong>YAML</strong> 文件</p></li></ol><pre data-language="yaml">name: Deploy Hexo to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master # 或你使用的默认分支名称
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout blog source
+        uses: actions/checkout@v2
+        with:
+          path: blog
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: &quot;16&quot; # 设置 Node.js 版本
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./blog
+
+      - name: Install Hexo CLI
+        run: npm install -g hexo-cli
+        working-directory: ./blog
+
+      - name: Generate static pages
+        run: hexo generate
+        working-directory: ./blog
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          publish_dir: ./blog/public
+          external_repository: username/username.github.io # 更改为你的 GitHub Pages 仓库, username 是你的用户名
+          publish_branch: main # GitHub Pages 分支
+</pre><ol start="4"><li>提交本地的 Hexo 项目代码到对应 Github 仓库即可触发 <strong>Github Actions</strong> 工作流实现自动部署，然后访问你的 <strong>username.github.io</strong> ！</li></ol></article></div> </article>  </main> <footer class="footer shell"> <span><span class="footer-mark" aria-hidden="true">~/</span> Gavin Zhou</span> <a href="/">返回首页 ↗</a> </footer> </body></html>

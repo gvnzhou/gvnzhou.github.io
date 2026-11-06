@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="又懒了好久没写博客...最近忽然发现百度居然不会爬取部署在github上的博客文章，所以准备把原来的博客移到我自己的VPS上。服务器信息：国外的VPS - VultrLinux - CentOS 7关于国外VPS，推荐Vultr吧，我用的新加坡机房，速度还是挺快。还有原来用的搬瓦工也不错。这里不讲N"><meta name="theme-color" content="#0b1012"><title>实现自动化部署Hexo到Linux服务器 · Gavin Zhou</title><link rel="icon" href="/mark.svg?v=gz-ac33957" type="image/svg+xml"><link rel="stylesheet" href="/_astro/content.BEY1TnSF.css"></head> <body> <a class="skip" href="#main">跳到正文</a> <header class="header shell"> <a class="brand" href="/" aria-label="Gavin Zhou，首页"> <img src="/mark.svg?v=gz-ac33957" alt="" width="34" height="34"> <span>Gavin Zhou</span> </a> <nav aria-label="主要导航"> <a href="/#notes" data-nav="notes">造物手记</a> <a href="/#projects" data-nav="projects">项目</a> <a href="/#about" data-nav="about">关于</a> </nav> </header> <main id="main" class="shell">  <article class="entry" aria-labelledby="entry-title"> <a class="entry-back" href="/#notes"><span aria-hidden="true">←</span> 返回造物手记</a> <header class="entry-header"> <p class="index">01 / WRITING</p> <h1 id="entry-title">实现自动化部署Hexo到Linux服务器</h1> <div class="entry-meta"> <time datetime="2016-11-06">2016-11-06</time> <span class="badge">开发笔记</span> </div> </header> <div class="entry-copy"><article><p>又懒了好久没写博客...</p><p>最近忽然发现百度居然不会爬取部署在github上的博客文章，所以准备把原来的博客移到我自己的VPS上。</p><p>服务器信息：</p><ul><li>国外的VPS - Vultr</li><li>Linux - CentOS 7</li></ul><p>关于国外VPS，推荐Vultr吧，我用的新加坡机房，速度还是挺快。还有原来用的搬瓦工也不错。</p><p>这里不讲NodeJs环境的配置了，网上教程很多。本文主要内容：</p><ol><li><a href="https://hackergavin.com/2016/11/06/hexodeploy/#jump1">ssh免密码连接Linux</a></li><li><a href="https://hackergavin.com/2016/11/06/hexodeploy/#jump2">CentOS 7下安装Hexo</a></li><li><a href="https://hackergavin.com/2016/11/06/hexodeploy/#jump3">CentOS 7下安装Git</a></li><li><a href="https://hackergavin.com/2016/11/06/hexodeploy/#jump4">实现本地Git方式部署网站到服务器</a></li></ol><hr><h2>SSH免密码登陆Linux</h2><p>服务器端：</p><p>CentOS 7 默认是已经启动了 ssh 服务的。可以通过如下命令查看 ssh 服务是否启动</p><pre># systemctl status sshd.service
+</pre><p>本地客户端：</p><p>执行如下命令，生成公钥。</p><pre>$  ssh-keygen -t rsa
+</pre><p>然后执行如下命令，把生成的公钥发送到服务器上去。</p><pre>$ ssh-copy-id -i ~/.ssh/id_rsa.pub root@服务器地址
+
+</pre><p>需要输入用户名密码，然后回车回车。。。就好了</p><p>成功之后，通过</p><pre>$ ssh root@服务器地址
+</pre><p>无需密码就可以连接服务器了。</p><h2>CentOS 7下安装Hexo</h2><p>默认已经安装好 NodeJs 环境。安装 Hexo 只要以下三步。</p><pre># hexo init &lt;folder&gt; // 初始化hexo目录，&lt;folder&gt;=文件夹名，不存在会创建该文件夹
+# cd &lt;folder&gt;        // 进入hexo目录
+# npm install        // 安装模块依赖包
+</pre><h2>CentOS 7下安装Git</h2><p>1.安装 Git ：</p><pre># sudo yum install git 
+</pre><p>2.创建一个 git 用户，用来运行 git 服务：</p><pre># sudo adduser git
+</pre><p>3.初始化 Git 仓库，将其放在 <code>/var/repo/blog.git</code> （或者其他任意目录）下的：</p><pre># sudo mkdir /var/repo
+# cd /var/repo
+# sudo git init --bare blog.git
+</pre><p>使用 <code>--bare</code> 参数，Git 就会创建一个裸仓库，裸仓库没有工作区，我们不会在裸仓库上进行操作，它只为共享而存在。</p><p>4.配置 git hooks,这里使用 <code>post-receive</code> 的 hook，这个 hook 会在整个 git 操作过程完结以后被运行。</p><p>在 <code>blog.git/hooks</code> 目录下新建一个 post-receive 文件：</p><pre># cd /var/repo/blog.git/hooks
+# vi post-receive
+</pre><p>在 <code>post-receive</code> 文件中写入如下内容：</p><pre>#!/bin/sh
+git --work-tree=/var/www/hexo --git-dir=/var/repo/blog.git checkout -f
+</pre><p>注意，<code>/var/www/hexo</code> 要换成你自己的部署目录。上面那句 git 命令可以在我们每次 push 完之后，把部署目录更新到博客的最新生成状态。这样便可以完成达到自动部署的目的了。</p><p>不要忘记设置这个文件的可执行权限：</p><pre>chmod +x post-receive
+</pre><p>5.改变 <code>blog.git</code> 目录的拥有者为 git 用户：</p><pre># sudo chown -R git:git blog.git
+</pre><p>ok,到此服务器端配置完成。</p><h2>实现本地Git方式部署网站到服务器</h2><p>本地必须安装 <code>hexo-deploy-git</code> 模块</p><pre>$ npm install hexo-deployer-git --save
+</pre><p>然后修改根目录下的 <code>_config.yml</code></p><pre>deploy:
+  type: git
+  repo: &lt;repository url&gt;
+  branch: [branch]
+  message: [message]
+</pre><p>最后提交</p><pre>$ hexo clean
+$ hexo d
+</pre><p>Over.</p></article></div> </article>  </main> <footer class="footer shell"> <span><span class="footer-mark" aria-hidden="true">~/</span> Gavin Zhou</span> <a href="/">返回首页 ↗</a> </footer> </body></html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Js中的三个字符串方法Slice( ) ： 第一个参数指定子字符串的开始位置 第二个参数指定子字符串最后一个字符后面的位置 传入负值：会与字符串长度相加Substring( )： 第一个参数指定子字符串的开始位置 第二个参数指定子字符串最后一个字符后面的位置 所有负值参数转换为0substr( ) "><meta name="theme-color" content="#0b1012"><title>实习知识点总结(6) · Gavin Zhou</title><link rel="icon" href="/mark.svg?v=gz-ac33957" type="image/svg+xml"><link rel="stylesheet" href="/_astro/content.BEY1TnSF.css"></head> <body> <a class="skip" href="#main">跳到正文</a> <header class="header shell"> <a class="brand" href="/" aria-label="Gavin Zhou，首页"> <img src="/mark.svg?v=gz-ac33957" alt="" width="34" height="34"> <span>Gavin Zhou</span> </a> <nav aria-label="主要导航"> <a href="/#notes" data-nav="notes">造物手记</a> <a href="/#projects" data-nav="projects">项目</a> <a href="/#about" data-nav="about">关于</a> </nav> </header> <main id="main" class="shell">  <article class="entry" aria-labelledby="entry-title"> <a class="entry-back" href="/#notes"><span aria-hidden="true">←</span> 返回造物手记</a> <header class="entry-header"> <p class="index">01 / WRITING</p> <h1 id="entry-title">实习知识点总结(6)</h1> <div class="entry-meta"> <time datetime="2016-03-11">2016-03-11</time> <span class="badge">开发笔记</span> </div> </header> <div class="entry-copy"><article><h3>Js中的三个字符串方法</h3><ul><li>Slice( ) ： 第一个参数指定子字符串的开始位置 第二个参数指定子字符串最后一个字符后面的位置 传入负值：会与字符串长度相加</li><li>Substring( )： 第一个参数指定子字符串的开始位置 第二个参数指定子字符串最后一个字符后面的位置 所有负值参数转换为0</li><li>substr( ) ： 第一个参数指定子字符串的开始位置 第二个参数指定返回的字符个数 传入负值：第一个参数会与字符串长度相加，负的第二个参数转换为0</li></ul><p>这三个方法都不影响字符串本身的值。</p><h2>Js控制文件上传类型格式</h2><p>Js中有个onsubmit事件用于监听表单提交时触发的事件，因此在表单提交的时候，需要给定一个方法去判断此时上传的文件类型，只有当验证类型通过时才允许提交，此时返回true，如果该类型不能通过，则返回false。 Js本身并没有判断上传文件类型的方法，只能通过读取上传文件的文件名，截取文件名的后缀，将这个后缀与你定义的文件类型后缀相比较得出是否属于某个文件类型。 方法如下：</p><pre data-language="javascript">$(&quot;form&quot;).onsubmit = function (){
+    return Check_FileType($(&quot;file&quot;).value);
+}
+function Check_FileType(str){
+    var pos = str.indexOf(&quot;.&quot;);
+    var typeSuffix = str.slice(pos);
+    var fileType = &quot;.txt&quot;;
+    if (typeSuffix.toLowerCase() == fileType.toLowerCase()){
+        return true;
+    }else {
+        alert(&quot;请上传txt文件！&quot;);
+        return false;
+    }
+}
+</pre></article></div> </article>  </main> <footer class="footer shell"> <span><span class="footer-mark" aria-hidden="true">~/</span> Gavin Zhou</span> <a href="/">返回首页 ↗</a> </footer> </body></html>

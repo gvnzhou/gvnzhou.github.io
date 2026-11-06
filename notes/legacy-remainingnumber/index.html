@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="今天，朋友负责运营的论坛需要制作一个报名剩余人数动态减少的效果，但是并没有服务器提供的当前真实剩余人数。身为程序员的我，只好帮忙实现这个功能了。需求： 假设当前1500人（不知道真实的剩余名额），此后每20分钟会少掉一个名额，到截止那天可能会有剩余名额。v0.1代码：<div id=&quot;banner&quot;"><meta name="theme-color" content="#0b1012"><title>Js模拟剩余名额动态减少功能 · Gavin Zhou</title><link rel="icon" href="/mark.svg?v=gz-ac33957" type="image/svg+xml"><link rel="stylesheet" href="/_astro/content.BEY1TnSF.css"></head> <body> <a class="skip" href="#main">跳到正文</a> <header class="header shell"> <a class="brand" href="/" aria-label="Gavin Zhou，首页"> <img src="/mark.svg?v=gz-ac33957" alt="" width="34" height="34"> <span>Gavin Zhou</span> </a> <nav aria-label="主要导航"> <a href="/#notes" data-nav="notes">造物手记</a> <a href="/#projects" data-nav="projects">项目</a> <a href="/#about" data-nav="about">关于</a> </nav> </header> <main id="main" class="shell">  <article class="entry" aria-labelledby="entry-title"> <a class="entry-back" href="/#notes"><span aria-hidden="true">←</span> 返回造物手记</a> <header class="entry-header"> <p class="index">01 / WRITING</p> <h1 id="entry-title">Js模拟剩余名额动态减少功能</h1> <div class="entry-meta"> <time datetime="2016-09-09">2016-09-09</time> <span class="badge">技术实验</span> </div> </header> <div class="entry-copy"><article><p>今天，朋友负责运营的论坛需要制作一个报名剩余人数动态减少的效果，但是并没有服务器提供的当前真实剩余人数。</p><p>身为程序员的我，只好帮忙实现这个功能了。</p><p>需求： 假设当前1500人（不知道真实的剩余名额），此后每20分钟会少掉一个名额，到截止那天可能会有剩余名额。</p><h2>v0.1代码：</h2><pre data-language="html">&lt;div id=&quot;banner&quot;&gt;
+	&lt;p&gt;剩余名额:&lt;span id='num'&gt;&lt;/span&gt;人&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+(function(){
+	let num = 1500;
+	let time = 1000*60*20;
+	let elm = document.querySelector('#num');
+	setInterval(function(){
+		elm.innerHTML = Math.ceil(--num);
+	},time);
+})()
+&lt;/script&gt;
+</pre><p>但是会有个重大问题就是，每次刷新之后名额都会变为初始值。</p><p>首先想到的是用localStoarge在本地记录，每次触发定时器后保存一下当前剩余名额。但一想，这样做的后果就是每个用户在该网站看到的剩余名额都不一样，而且每个时间点的剩余名额也不一样，因此这个方案pass。</p><p>所以在不知道真实数据的情况下，我们只能模拟出一个真实数据，而且这个值每个时间点都不一样，呈递减势。</p><p>那现在的问题就是要得到每个时间点上的剩余名额，所以可以通过每过多少分钟少掉几人来倒推出当前剩余名额。</p><h2>v0.2 代码：</h2><pre data-language="html">&lt;script&gt;
+(function(){
+	let time = 20; // 定时器间隔，单位:分钟
+	let deNum = 1; // 每个定时器间隔减少人数
+	let elm = document.querySelector('#num');
+	let minNum = (new Date('2016-9-28').getTime() - new Date().getTime()) / 60 / 1000; // 距离截止分钟数
+	let num = minNum * deNum / time; // 计算当前时间点剩余名额公式。
+	elm.innerHTML = Math.ceil(num);
+	setInterval(function(){
+		num = num - deNum;
+		elm.innerHTML = Math.ceil(num);
+	},time * 60 * 1000);
+})()
+&lt;/script&gt;
+</pre><p>Over.</p></article></div> </article>  </main> <footer class="footer shell"> <span><span class="footer-mark" aria-hidden="true">~/</span> Gavin Zhou</span> <a href="/">返回首页 ↗</a> </footer> </body></html>
